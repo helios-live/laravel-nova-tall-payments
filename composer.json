@@ -1,0 +1,11 @@
+{
+    "name": "alex/laravel-payments",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Alexandru Eftimie",
+            "email": "office@alexeftimie.ro"
+        }
+    ],
+    "require": {}
+}
