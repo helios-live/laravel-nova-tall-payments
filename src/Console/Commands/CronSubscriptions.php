@@ -39,10 +39,12 @@ class CronSubscriptions extends Command
      */
     public function handle()
     {
+        $this->endExpiredSubscriptions();
         return 0;
     }
 
     public function endExpiredSubscriptions() {
+
         $collection = Subscription::where('expires_at', '>', Carbon::now())->get();
 
         $collection = $this->withProgressBar($collection, function ($subscription) {

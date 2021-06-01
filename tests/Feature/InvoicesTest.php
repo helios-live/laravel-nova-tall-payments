@@ -2,20 +2,16 @@
 
 namespace AlexEftimie\LaravelPayments\Tests\Feature;
 
-use AlexEftimie\LaravelPayments\Events\InvoiceCreated;
-use AlexEftimie\LaravelPayments\Events\InvoicePaid;
-use App\Models\Subscription;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use AlexEftimie\LaravelPayments\Models\Invoice;
+use AlexEftimie\LaravelPayments\Tests\FeatureTestCase;
+use AlexEftimie\LaravelPayments\Events\InvoicePaid;
+use AlexEftimie\LaravelPayments\Events\InvoiceCreated;
 
-class InvoicesTest extends TestCase
+class InvoicesTest extends FeatureTestCase
 {
-    use RefreshDatabase;
-
-    use SetupTests;
 
     public function setUp(): void
     {
@@ -27,7 +23,9 @@ class InvoicesTest extends TestCase
     {
         Event::fake();
 
-        $invoice = $this->sub->invoices()->create([
+        $invoice = $this->owner->invoices()->create([
+        	'uuid' => Invoice::newUuid(),
+            'subscription_id' => $this->sub->id,
             'amount' => $this->amount,
             'due_at' => Carbon::now(),
         ]);
@@ -44,7 +42,7 @@ class InvoicesTest extends TestCase
     {
         Event::fake();
         $now = Carbon::now();
-        $this->invoice->pay();
+        $this->invoice->pay('Test GW', 'Test ID');
 
         $this->assertEquals($this->invoice->paid_at->format('Y-m-d H:i:s'), $now, "Invoice was not paid correctly");
 

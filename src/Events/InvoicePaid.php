@@ -10,4 +10,13 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class InvoicePaid extends InvoiceEvent {}
+class InvoicePaid extends InvoiceEvent
+{
+    public $gateway;
+    public $id;
+
+    public function setGateway(string $gateway, string $id) {
+        $this->gateway = $gateway;
+        $this->id = $id;
+    }
+}

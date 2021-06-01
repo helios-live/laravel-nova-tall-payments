@@ -2,17 +2,14 @@
 
 namespace AlexEftimie\LaravelPayments\Tests\Feature;
 
-use AlexEftimie\LaravelPayments\Models\Price;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
+use AlexEftimie\LaravelPayments\Models\Price;
+use AlexEftimie\LaravelPayments\Tests\FeatureTestCase;
 
-class PricesTest extends TestCase
+
+class PricesTest extends FeatureTestCase
 {
-
-    use SetupTests;
-    use RefreshDatabase;
 
     public function setUp(): void
     {

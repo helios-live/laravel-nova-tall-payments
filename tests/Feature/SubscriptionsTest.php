@@ -2,17 +2,16 @@
 
 namespace AlexEftimie\LaravelPayments\Tests\Feature;
 
-use AlexEftimie\LaravelPayments\Events\SubscriptionCreated;
-use AlexEftimie\LaravelPayments\Models\Subscription;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use Illuminate\Support\Facades\Event;
+use AlexEftimie\LaravelPayments\Tests\FeatureTestCase;
+use AlexEftimie\LaravelPayments\Models\Subscription;
+use AlexEftimie\LaravelPayments\Events\SubscriptionEnded;
+use AlexEftimie\LaravelPayments\Events\SubscriptionCreated;
+use AlexEftimie\LaravelPayments\Events\SubscriptionCanceled;
 
-class SubscriptionsTest extends TestCase
+class SubscriptionsTest extends FeatureTestCase
 {
-    use RefreshDatabase;
-    use SetupTests;
 
     public function setUp(): void
     {
@@ -39,7 +38,7 @@ class SubscriptionsTest extends TestCase
     public function test_event_is_emitted_when_subscription_created()
     {
         Event::fake();
-        $this->sub = Subscription::NewSubscription($this->team, $this->price, null);
+        $this->sub = Subscription::NewSubscription($this->owner, $this->price, null);
         $sub = $this->sub;
         // The event should be emitted with the right subscription
         Event::assertDispatched(SubscriptionCreated::class, function ($event) use ($sub) {
@@ -71,7 +70,7 @@ class SubscriptionsTest extends TestCase
         $date = $price->getNextPeriodFrom(Carbon::now());
         $expected = $date->format('Y-m-d H:i:s');
 
-        $this->invoice->pay();
+        $this->invoice->pay('Test GW','Test Id');
 
         $this->sub->refresh();
 
@@ -87,30 +86,73 @@ class SubscriptionsTest extends TestCase
         $this->assertEquals('Canceled', $this->sub->status);
     }
 
+    public function test_subscription_status_and_event_emitted_after_canceled()
+    {
+        Event::fake();
+        $this->sub->cancel();
+
+        $this->sub->refresh();
+
+        // test subscription canceled
+        $this->assertEquals('Canceled', $this->sub->status);
+
+        $sub = $this->sub;
+
+        // The event should be emitted with the right subscription
+        Event::assertDispatched(SubscriptionCanceled::class, function ($event) use ($sub) {
+            return $event->subscription->id === $sub->id;
+        });
+
+        Event::assertNotDispatched(SubscriptionEnded::class);
+    }
+
     public function test_subscription_ended_after_expiration()
     {
+
+        // get past date
+        $date = Carbon::now()->sub('1 month 1 hour');
+
+        // Set time to past
+        Carbon::setTestNow($date);
+
+        // Pay invoice in the past
+        $this->invoice->pay('test gw', 'test id');
+
+        // Run Cron Command
+        $this->artisan('payments:cron')
+            ->assertExitCode(0);
+
+        $this->sub->refresh();
+        
         // $this->sub->end();
         $this->assertEquals('Ended', $this->sub->status);
 
+        $end_reason = $this->sub->getMetaValue('end_reason');
+
         // Check end reason
-        $this->assertEquals(Subscription::REASON_EXPIRED, $this->sub->expires_at);
+        $this->assertEquals(Subscription::REASON_EXPIRED, $end_reason);
     }
 
     public function test_subscription_status_updated_after_ended()
     {
-        $this->sub->end();
+        $this->sub->end("Test");
         $this->assertEquals('Ended', $this->sub->status);
-    }
-
-    public function test_subscription_event_emitted_after_canceled()
-    {
-        $this->sub->cancel();
-        $this->assertEquals('Canceled_', $this->sub->status);
     }
 
     public function test_subscription_event_emitted_after_ended()
     {
-        $this->sub->end();
-        $this->assertEquals('Ended_', $this->sub->status);
+        Event::fake();
+        $this->sub->end("Test");
+
+        $this->sub->refresh();
+
+        $sub = $this->sub;
+
+        // The event should be emitted with the right subscription
+        Event::assertDispatched(SubscriptionEnded::class, function ($event) use ($sub) {
+            return $event->subscription->id === $sub->id;
+        });
+
+        Event::assertNotDispatched(SubscriptionCanceled::class);
     }
 }

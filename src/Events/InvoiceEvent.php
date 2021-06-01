@@ -16,6 +16,7 @@ class InvoiceEvent
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $invoice;
+    public $owner;
     /**
      * Create a new event instance.
      *
@@ -24,6 +25,7 @@ class InvoiceEvent
     public function __construct(Invoice $invoice)
     {
         $this->invoice = $invoice;
+        $this->owner = $invoice->owner;
     }
 
     /**

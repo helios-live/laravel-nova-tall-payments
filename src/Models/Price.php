@@ -4,8 +4,33 @@ namespace AlexEftimie\LaravelPayments\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use AlexEftimie\LaravelPayments\Models\Model;
 
+/**
+ * AlexEftimie\LaravelPayments\Models\Price
+ *
+ * @property int $id
+ * @property int $product_id
+ * @property string $slug
+ * @property string $name
+ * @property int $amount
+ * @property string $billing_period
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \AlexEftimie\LaravelPayments\Models\Product $product
+ * @method static \Illuminate\Database\Eloquent\Builder|Price newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Price newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Price query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Price whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Price whereBillingPeriod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Price whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Price whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Price whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Price whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Price whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Price whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Price extends Model
 {
     use HasFactory;
@@ -18,7 +43,18 @@ class Price extends Model
             '1m' => '1 month',
             '1q' => '3 months',
             '1y' => '1 year'
+        ],
+        [   '1d' => 'daily',
+            '1w' => 'weekly',
+            '1m' => 'monthly',
+            '1q' => 'quarterly',
+            '1y' => 'yearly'
         ]
+    ];
+
+
+    protected $casts = [
+        'payload' => 'object',
     ];
 
     public function getRouteKeyName() { return 'slug'; }
@@ -53,5 +89,6 @@ class Price extends Model
         return $date->add(Price::$period_map[0][ $this->billing_period ]);
     }
 
+    public function getPeriodAttribute() { return Price::$period_map[1][ $this->billing_period]; }
 
 }

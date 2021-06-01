@@ -1,0 +1,11 @@
+
+php artisan ide-helper:models \
+"AlexEftimie\LaravelPayments\Models\Category" \
+"AlexEftimie\LaravelPayments\Models\Coupon" \
+"AlexEftimie\LaravelPayments\Models\Invoice" \
+"AlexEftimie\LaravelPayments\Models\Log" \
+"AlexEftimie\LaravelPayments\Models\Payment" \
+"AlexEftimie\LaravelPayments\Models\Price" \
+"AlexEftimie\LaravelPayments\Models\Product" \
+"AlexEftimie\LaravelPayments\Models\Price" \
+"AlexEftimie\LaravelPayments\Models\Subscription"

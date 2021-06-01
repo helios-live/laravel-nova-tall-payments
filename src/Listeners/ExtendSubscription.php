@@ -3,26 +3,35 @@
 namespace AlexEftimie\LaravelPayments\Listeners;
 
 
-use AlexEftimie\LaravelPayments\Events\InvoiceEvent;
 use Carbon\Carbon;
 
-class SubscriptionExtend
+
+use AlexEftimie\LaravelPayments\Events\InvoiceEvent;
+
+class ExtendSubscription
 {
     /**
-     * Handle the event.
+     * Extends the expiration date.
      *
-     * @param  object  $event
+     * @param  InvoiceEvent  $event
      * @return void
      */
     public function handle(InvoiceEvent $event)
     {
-        $sub = $event->invoice->subscription;
+        $invoice = $event->invoice;
+
+        // invoice is not for a subscription
+        if ( $invoice->subscription == null ) {
+            return;
+        } 
+        $sub = $invoice->subscription;
 
         // Completely New Subscription
-        if ( $sub->status == 'New' ) {
+        if ( $sub->status == 'New' || $sub->status == 'Waiting' ) {
 
             // First invoice has a 24 hour deadline
             $date = Carbon::now();
+            $sub->start();
         } else {
             $date = $sub->expires_at;
         }

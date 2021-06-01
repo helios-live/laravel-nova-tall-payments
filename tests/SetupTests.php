@@ -1,17 +1,18 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Tests\Feature;
+namespace AlexEftimie\LaravelPayments\Tests;
 
 use AlexEftimie\LaravelPayments\Models\Price;
+use Orchestra\Testbench\Factories\UserFactory;
+use AlexEftimie\LaravelPayments\Tests\Models\User;
 use AlexEftimie\LaravelPayments\Models\Subscription;
-use App\Models\Team;
 
 /**
  * 
  */
 trait SetupTests
 {
-    public $team;
+    public $owner;
     public $price;
     public $sub;
     public $amount;
@@ -21,12 +22,11 @@ trait SetupTests
 
         $this->amount = mt_rand() % 100000;
 
-        $this->team = (new Team())->fill([
-            'user_id' => 1,
-            'name' => 'test team',
-            'personal_team' => false,
-        ]);
-        $this->team->save();
+        // create
+        $user = UserFactory::new()->create();
+
+        // load as Tests/User
+        $this->owner = User::latest()->first();
 
         $this->price = (new Price())->fill([
             'name' => 'Test Price',
@@ -38,7 +38,7 @@ trait SetupTests
         ]);
         $this->price->save();
 
-        $this->sub = Subscription::NewSubscription($this->team, $this->price, null);
+        $this->sub = Subscription::NewSubscription($this->owner, $this->price, null);
 
         $this->invoice = $this->sub->invoices()->first();
 

@@ -4,6 +4,7 @@ namespace AlexEftimie\LaravelPayments\Listeners;
 
 
 use AlexEftimie\LaravelPayments\Events\SubscriptionEvent;
+use AlexEftimie\LaravelPayments\Models\Invoice;
 use Carbon\Carbon;
 
 class SubscriptionCreateInvoice
@@ -27,7 +28,11 @@ class SubscriptionCreateInvoice
             $date = $sub->expires_at;
         }
 
-        $sub->invoices()->create([
+        $owner = $sub->owner;
+
+        $owner->invoices()->create([
+            'uuid' => Invoice::newUuid(),
+            'subscription_id' => $sub->id,
             'amount' => $sub->current_price,
             'plus' => null,
             'due_at' => $date,
