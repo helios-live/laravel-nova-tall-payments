@@ -23,7 +23,7 @@ class CreateInvoicesTable extends Migration
 
             $table->json('plus')->nullable();
 
-            $table->timestamp('due_at')->index();
+            $table->datetime('due_at')->index();
             $table->unsignedBigInteger('payment_id')->nullable()->index();
             $table->unsignedBigInteger('refund_id')->nullable()->index();;
             $table->timestamps();

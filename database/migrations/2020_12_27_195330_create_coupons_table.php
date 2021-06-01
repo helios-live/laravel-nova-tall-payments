@@ -20,8 +20,8 @@ class CreateCouponsTable extends Migration
             $table->json('valid_categories_ids'); // [1,2,N]
             $table->json('valid_products_ids'); // [1,2,N]
 
-            $table->timestamp('starts_at');
-            $table->timestamp('ends_at')->nullable();
+            $table->datetime('starts_at');
+            $table->datetime('ends_at')->nullable();
             $table->timestamps();
         });
     }

@@ -28,7 +28,7 @@ class CreateSubscriptionsTable extends Migration
             $table->integer('base_price'); // in cents
             $table->json('coupon')->nullable();
             $table->enum('status', ['New', 'Waiting', 'Active', 'Suspended', 'Canceled', 'Ended'])->default('New');
-            $table->timestamp('expires_at');
+            $table->datetime('expires_at')->nullable();
             $table->timestamps();
         });
     }
