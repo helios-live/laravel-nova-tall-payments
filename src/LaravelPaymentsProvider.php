@@ -14,17 +14,19 @@ use AlexEftimie\LaravelPayments\Models\Invoice;
 use AlexEftimie\LaravelPayments\Models\Payment;
 use AlexEftimie\LaravelPayments\Models\Subscription;
 use AlexEftimie\LaravelPayments\EventServiceProvider;
+use AlexEftimie\LaravelPayments\Components\ButtonLink;
 use AlexEftimie\LaravelPayments\Policies\InvoicePolicy;
 use AlexEftimie\LaravelPayments\Livewire\InvoiceManager;
 use AlexEftimie\LaravelPayments\Livewire\TeamBillingManager;
+use AlexEftimie\LaravelPayments\Policies\SubscriptionPolicy;
 use AlexEftimie\LaravelPayments\Console\Commands\CronSubscriptions;
-use AlexEftimie\LaravelPayments\Components\ButtonLink;
 
 // "AlexEftimie\\LaravelPayments\\": "vendor/alexeftimie/laravel-payments/src/"
 class LaravelPaymentsProvider extends ServiceProvider
 {
     protected $policies = [
         Invoice::class => InvoicePolicy::class,
+        Subscription::class => SubscriptionPolicy::class,
     ];
     /**
      * Register services.

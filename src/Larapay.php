@@ -158,8 +158,7 @@ class Larapay {
             return $instance->getManagementRoute();
         } else {
             return 'invoice.show';
-        }
-        
+        }   
     }
 
     public function setAffiliate(User $user) {
