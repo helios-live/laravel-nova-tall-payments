@@ -40,7 +40,7 @@
     <x-slot name="footer">
         <div class="flex justify-between">
             <x-jet-secondary-button wire:click="hideGateway">
-                {{ __('Nevermind') }}
+                {{ __('Nevermind') }}   
             </x-jet-secondary-button>
             <x-jet-button wire:click="createSingleCharge" wire:loading.attr="disabled">
                 {{ __('Take me to PayPal') }}

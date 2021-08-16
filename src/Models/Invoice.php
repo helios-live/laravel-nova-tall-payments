@@ -13,6 +13,7 @@ use AlexEftimie\LaravelPayments\Events\InvoiceCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AlexEftimie\LaravelPayments\Events\InvoiceRefunded;
 use AlexEftimie\LaravelPayments\Events\SubscriptionStarted;
+use Laravel\Nova\Actions\Actionable;
 
 /**
  * AlexEftimie\LaravelPayments\Models\Invoice
@@ -45,6 +46,7 @@ class Invoice extends Model
 {
     use HasFactory;
     use Metable;
+    use Actionable;
     
     protected $casts = [
         'due_at' => 'datetime',
@@ -144,13 +146,12 @@ class Invoice extends Model
             'refund_id' => $p->id,
         ])->save();
 
-        $this->subscription->forceFill([
-            'status' => 'Ended',
-        ])->save();
 
         $event = new InvoiceRefunded($this);
         $event->setGateway($gateway, $id);
         event($event);
+        
+        $this->subscription->end('Refunded');
 
     }
 

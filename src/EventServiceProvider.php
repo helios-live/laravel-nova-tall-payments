@@ -8,6 +8,7 @@ use AlexEftimie\LaravelPayments\Models\Invoice;
 use AlexEftimie\LaravelPayments\Events\InvoicePaid;
 use AlexEftimie\LaravelPayments\Listeners\NotifyUser;
 use AlexEftimie\LaravelPayments\Events\InvoiceCreated;
+use AlexEftimie\LaravelPayments\Listeners\UpdateSales;
 use AlexEftimie\LaravelPayments\Events\InvoiceRefunded;
 use AlexEftimie\LaravelPayments\Listeners\CreatePayment;
 use AlexEftimie\LaravelPayments\Events\SubscriptionCreated;
@@ -38,8 +39,10 @@ class EventServiceProvider extends ServiceProvider {
             // also sends the subscription started event
             ExtendSubscription::class,
             CreateCommission::class,
+            UpdateSales::class,
         ],
         InvoiceRefunded::class => [
+            UpdateSales::class,
         ],
         TeamCreated::class => [
             SetTeamAffiliate::class,

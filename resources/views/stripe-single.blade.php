@@ -155,6 +155,7 @@
 			@else
 				<form id="payment-form" dusk="gateway-stripe" x-on:submit="">
 					@csrf
+					{{-- <x-jet-input id="firstname" type="text" placeholder="Name" class="mt-1 block w-full" wire:model.defer="createApiTokenForm.name" autofocus /> --}}
 					<div id="card-element" class="mt-10 mb-2 h-11 border border-gray-200 w-full flex-1 text-sm bg-grey-light text-grey-darkest rounded-md p-3 focus:outline-none"></div>                  
 					<div class="text-red-600 mb-8" id="card-errors" role="alert">&nbsp;</div>
 				</form>

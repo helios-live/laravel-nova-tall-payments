@@ -150,7 +150,7 @@ class Larapay {
         return view('larapay::general-error', ['errors' => $messageBag]);
     }
 
-    public function getManagementRoute(Subscription $sub) {
+    public function getManagementRoute($sub) {
 
         if ( $sub->isActive() ) {
             $manager = $sub->manager;

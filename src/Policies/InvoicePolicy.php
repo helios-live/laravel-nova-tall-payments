@@ -39,4 +39,28 @@ class InvoicePolicy
     {
         return $user->isAdmin();
     }
+    public function before(User $user, $ability)
+    {
+        return $user->isAdmin();
+    }
+
+    public function view(User $user, Invoice $subscription)
+    {
+        return $user->isAdmin();
+    }
+
+    public function create(User $user, Invoice $subscription)
+    {
+        return $user->isAdmin();
+    }
+
+    public function update(User $user, Invoice $subscription)
+    {
+        return $user->isAdmin();
+    }
+
+    public function delete(User $user, Invoice $subscription)
+    {
+        return $user->isAdmin();
+    }
 }

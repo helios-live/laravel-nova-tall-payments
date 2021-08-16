@@ -66,7 +66,7 @@
                         {{-- <h3 class="text-lg text-gray-800 font-bold mt-5 mb-1">User Experience Revamp</h3> --}}
                         <p class="mt-8 text-gray-600 text-sm font-normal">
                             @if($sub)
-                                {{ $sub->price->product->description }}
+                                {!! $sub->price->product->description !!}
                             @else
 
                             @endif

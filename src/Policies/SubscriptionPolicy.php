@@ -23,9 +23,27 @@ class SubscriptionPolicy
 
     public function before(User $user, $ability)
     {
-        if( $user->isAdmin() ) {
-            return true;
-        }
+        return $user->isAdmin();
+    }
+
+    public function view(User $user, Subscription $subscription)
+    {
+        return $user->isAdmin();
+    }
+
+    public function create(User $user, Subscription $subscription)
+    {
+        return $user->isAdmin();
+    }
+
+    public function update(User $user, Subscription $subscription)
+    {
+        return $user->isAdmin();
+    }
+
+    public function delete(User $user, Subscription $subscription)
+    {
+        return $user->isAdmin();
     }
 
     public function manage(User $user, Subscription $subscription)

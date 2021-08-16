@@ -3,8 +3,9 @@
 namespace AlexEftimie\LaravelPayments\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Tags\HasTags;
 use AlexEftimie\LaravelPayments\Models\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * AlexEftimie\LaravelPayments\Models\Price
@@ -34,6 +35,7 @@ use AlexEftimie\LaravelPayments\Models\Model;
 class Price extends Model
 {
     use HasFactory;
+    use HasTags;
 
     protected $guarded = [];
 

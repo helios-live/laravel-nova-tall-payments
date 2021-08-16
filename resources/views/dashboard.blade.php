@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="ml-4">
                                     <div class="mt-2 text-sm text-gray-500 mb-5">
-                                        {{ $sub->price->product->description }}
+                                        {!! $sub->price->product->description !!}
                                     </div>
                                     
                                     @if(!$sub->isOff())

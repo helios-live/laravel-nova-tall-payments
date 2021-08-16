@@ -4,11 +4,12 @@ namespace AlexEftimie\LaravelPayments\Models;
 
 use App\Models\Team;
 use Appstract\Meta\Metable;
+use Laravel\Nova\Actions\Actionable;
 use AlexEftimie\LaravelPayments\Models\Model;
-use AlexEftimie\LaravelPayments\Contracts\Billable;
 use AlexEftimie\LaravelPayments\Models\Price;
 use AlexEftimie\LaravelPayments\Models\Coupon;
 use AlexEftimie\LaravelPayments\Models\Invoice;
+use AlexEftimie\LaravelPayments\Contracts\Billable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AlexEftimie\LaravelPayments\Events\SubscriptionEnded;
 use AlexEftimie\LaravelPayments\Events\SubscriptionCreated;
@@ -59,6 +60,7 @@ Subscription example:
 class Subscription extends Model
 {
     use Metable;
+    use Actionable;
     use HasFactory;
     
     public const REASON_EXPIRED = "Expired";
@@ -150,6 +152,9 @@ class Subscription extends Model
         event(new SubscriptionEnded($this));
     }
 
+    public function scopeActive($query) {
+        return $query->where('status', 'Active');
+    }
     public function isActive() {
         return $this->status == 'Active';
     }

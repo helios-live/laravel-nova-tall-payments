@@ -13,9 +13,9 @@ Route::middleware(['web'])->group(function () {
 
 	    Route::any('/gateway/{gateway}/{invoice}', [TestController::class, 'gw'])->name('gateway');
 
-	    Route::get('/test-123', function(){
-	    	return view('larapay::emails.invoice-created');
-	    });
+	    // Route::get('/test-123', function(){
+	    // 	return view('larapay::emails.invoice-created');
+	    // });
 
 		Route::get('/order', [OrderController::class, 'getProductList'])->name('order.product-list');
 		Route::post('/order', [OrderController::class, 'postProductOrder'])->name('order.product');

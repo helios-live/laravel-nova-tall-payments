@@ -16,7 +16,7 @@
                     <h3 class="text-2xl">
                         {{ $product->name }}
                     </h3>
-                    <p class="text-gray-600">{{ $product->description }}</p>
+                    <p class="text-gray-600">{!! $product->description !!}</p>
                     <div class="mt-5">
                         @foreach ($product->prices as $price)
                         <label for="pr{{$product->slug}}{{$price->id}}" class="cursor-pointer">
