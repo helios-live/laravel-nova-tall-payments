@@ -49,7 +49,15 @@ class TestController extends Controller {
         return Larapay::charge($request->gateway, $invoice, $payload);
     }
 
-    public function cancel() {
+    public function cancel(Request $request)
+    {
+        $invoice = Invoice::where('uuid', '=', $request->invoice)->firstOrFail();
+        return Larapay::cancel($request->gateway, $invoice);
+        dd(__FILE__ . ":" . __LINE__, "Cancel");
+    }
+    public function callback(Request $request)
+    {
+        return Larapay::callback($request->gateway, $request);
         dd(__FILE__ . ":" . __LINE__, "Cancel");
     }
 

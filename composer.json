@@ -21,7 +21,8 @@
     "require": {
         "appstract/laravel-meta": "^2.0",
         "stripe/stripe-php": "^7.67",
-        "srmklive/paypal": "^3.0"
+        "srmklive/paypal": "^3.0",
+        "shakurov/coinbase": "^0.7.7"
     },
     "autoload": {
         "psr-4": {

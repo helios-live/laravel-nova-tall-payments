@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace AlexEftimie\LaravelPayments;
 
 use App\Listeners\EventLog;
@@ -15,22 +16,23 @@ use AlexEftimie\LaravelPayments\Events\SubscriptionCreated;
 use AlexEftimie\LaravelPayments\Events\SubscriptionStarted;
 use AlexEftimie\LaravelPayments\Listeners\CreateCommission;
 use AlexEftimie\LaravelPayments\Listeners\SetTeamAffiliate;
+use AlexEftimie\LaravelPayments\Events\InvoicePaymentFailed;
+use AlexEftimie\LaravelPayments\Listeners\NotifyInvoicePaid;
 use AlexEftimie\LaravelPayments\Listeners\ExtendSubscription;
 use AlexEftimie\LaravelPayments\Listeners\NotifyInvoiceCreated;
 use AlexEftimie\LaravelPayments\Listeners\SubscriptionCreateInvoice;
+use AlexEftimie\LaravelPayments\Listeners\NotifyInvoicePaymentFailed;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
-class EventServiceProvider extends ServiceProvider {
+class EventServiceProvider extends ServiceProvider
+{
 
     protected $listen = [
         SubscriptionCreated::class => [
             SubscriptionCreateInvoice::class,
         ],
-        SubscriptionStarted::class => [
-        ],
-        SubscriptionInitFailed::class => [
-
-        ],
+        SubscriptionStarted::class => [],
+        SubscriptionInitFailed::class => [],
         InvoiceCreated::class => [
             NotifyInvoiceCreated::class,
         ],
@@ -40,6 +42,10 @@ class EventServiceProvider extends ServiceProvider {
             ExtendSubscription::class,
             CreateCommission::class,
             UpdateSales::class,
+            NotifyInvoicePaid::class,
+        ],
+        InvoicePaymentFailed::class => [
+            NotifyInvoicePaymentFailed::class,
         ],
         InvoiceRefunded::class => [
             UpdateSales::class,
@@ -48,7 +54,7 @@ class EventServiceProvider extends ServiceProvider {
             SetTeamAffiliate::class,
         ]
     ];
-    
+
     /**
      * Register any other events for your application.
      *

@@ -20,7 +20,7 @@ class OrderController extends Controller
     public function getProductList()
     {
         $data = [
-            'products' => Product::get(),
+            'products' => Product::orderBy('order','desc')->active()->get(),
         ];
         return view('larapay::order.product-list', $data);
     }

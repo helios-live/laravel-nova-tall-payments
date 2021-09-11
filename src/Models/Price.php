@@ -63,6 +63,9 @@ class Price extends Model
 
     public function product(){ return $this->belongsTo(Product::class); }
 
+
+    public function scopeActive($query) { return $query->where('status', '=', '1'); }
+
     /**
      * priceWithDiscount
      * @param Coupon $coupon
