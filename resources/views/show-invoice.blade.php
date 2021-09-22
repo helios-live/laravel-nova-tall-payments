@@ -33,7 +33,7 @@
                             <div class="ml-3">
                                 <h5 class="text-gray-800 font-medium text-base">
                                     @if($sub)
-                                        #{{$sub->id}} {{ $sub->price->product->name }}
+                                        #{{$sub->id}} {!! $sub->price->product->name !!}
                                     @else
                                         no
                                     @endif
@@ -80,7 +80,7 @@
                         <div class="flex justify-center">
                             <div class="inline-block">
                                 @if($sub && $sub->isActive())
-                                    <x-button-link href="{{ route(Larapay::getManagementRoute($sub), $sub) }}">Manage</x-button-link>
+                                    <x-button-link class="sm:mt-3" href="{{ route(Larapay::getManagementRoute($sub), $sub) }}">Manage</x-button-link>
                                 @endif
                             </div>
                         </div>

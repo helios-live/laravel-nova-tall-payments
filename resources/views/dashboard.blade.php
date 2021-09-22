@@ -49,7 +49,7 @@
                             </div>
                             <div>
                                 <div class="flex-grow ml-4 text-lg text-gray-600 leading-7 font-semibold flex justify-between">
-                                    <span>{{ $sub->name }}</span>
+                                    <span>{!! $sub->name !!}</span>
                                 </div>
                                 <div class="ml-4">
                                     <div class="mt-2 text-sm text-gray-500 mb-5">
