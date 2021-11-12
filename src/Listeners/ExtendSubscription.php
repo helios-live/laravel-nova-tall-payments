@@ -27,8 +27,9 @@ class ExtendSubscription
         }
         $sub = $invoice->subscription;
 
+        $isNew = $sub->status == 'New' || $sub->status == 'Waiting';
         // Completely New Subscription
-        if ($sub->status == 'New' || $sub->status == 'Waiting') {
+        if ($isNew) {
 
             // First invoice has a 24 hour deadline
             $date = Carbon::now();
@@ -46,6 +47,8 @@ class ExtendSubscription
         $sub->expires_at = $date;
         $sub->save();
 
-        event(new SubscriptionExtended($sub));
+        if (!$isNew) {
+            event(new SubscriptionExtended($sub));
+        }
     }
 }
