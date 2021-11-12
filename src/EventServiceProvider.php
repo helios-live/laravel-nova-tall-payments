@@ -17,6 +17,7 @@ use AlexEftimie\LaravelPayments\Events\SubscriptionStarted;
 use AlexEftimie\LaravelPayments\Listeners\CreateCommission;
 use AlexEftimie\LaravelPayments\Listeners\SetTeamAffiliate;
 use AlexEftimie\LaravelPayments\Events\InvoicePaymentFailed;
+use AlexEftimie\LaravelPayments\Events\SubscriptionNewInvoice;
 use AlexEftimie\LaravelPayments\Listeners\NotifyInvoicePaid;
 use AlexEftimie\LaravelPayments\Listeners\ExtendSubscription;
 use AlexEftimie\LaravelPayments\Listeners\NotifyInvoiceCreated;
@@ -33,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         SubscriptionStarted::class => [],
         SubscriptionInitFailed::class => [],
+        SubscriptionNewInvoice::class => [
+            SubscriptionCreateInvoice::class,
+        ],
         InvoiceCreated::class => [
             NotifyInvoiceCreated::class,
         ],

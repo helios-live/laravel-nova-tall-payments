@@ -2,6 +2,7 @@
 
 namespace AlexEftimie\LaravelPayments\Models;
 
+use Carbon\Carbon;
 use App\Models\Team;
 use Appstract\Meta\Metable;
 use Laravel\Nova\Actions\Actionable;
@@ -17,6 +18,7 @@ use AlexEftimie\LaravelPayments\Events\SubscriptionStarted;
 use AlexEftimie\LaravelPayments\Events\SubscriptionCanceled;
 use AlexEftimie\LaravelPayments\Events\SubscriptionEndedEvent;
 use AlexEftimie\LaravelPayments\Events\SubscriptionInitFailed;
+use AlexEftimie\LaravelPayments\Events\SubscriptionNewInvoice;
 
 /*
 Subscription example: 
@@ -24,6 +26,7 @@ Subscription example:
     $price = AlexEftimie\LaravelPayments\Models\Price::whereSlug('rp-airplane-monthly')->first();
     $sub = AlexEftimie\LaravelPayments\Models\Subscription::NewSubscription($team, $price, null);
 */
+
 /**
  * AlexEftimie\LaravelPayments\Models\Subscription
  *
@@ -37,6 +40,7 @@ Subscription example:
  * @property \Illuminate\Support\Carbon $expires_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \AlexEftimie\LaravelPayments\Models\Invoice|null $latestInvoice
  * @property-read \Illuminate\Database\Eloquent\Collection|\AlexEftimie\LaravelPayments\Models\Invoice[] $invoices
  * @property-read int|null $invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Appstract\Meta\Meta[] $meta
@@ -62,7 +66,7 @@ class Subscription extends Model
     use Metable;
     use Actionable;
     use HasFactory;
-    
+
     public const REASON_EXPIRED = "Expired";
 
     /**
@@ -76,28 +80,45 @@ class Subscription extends Model
         'expires_at' => 'datetime',
     ];
 
-    public function latestInvoice() { return $this->hasOne(Invoice::class)->latestOfMany(); }
-    public function owner() { return $this->morphTo(); }
-    public function price() { return $this->belongsTo(Price::class); }
-    public function invoices() { return $this->hasMany(Invoice::class); }
-    public function affiliate() { return $this->morphTo(); }
-    
-    public function getNameAttribute() {
+    public function latestInvoice()
+    {
+        return $this->hasOne(Invoice::class)->latestOfMany();
+    }
+    public function owner()
+    {
+        return $this->morphTo();
+    }
+    public function price()
+    {
+        return $this->belongsTo(Price::class);
+    }
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+    public function affiliate()
+    {
+        return $this->morphTo();
+    }
+
+    public function getNameAttribute()
+    {
         return $this->price->product->name . " - " . $this->price->name . " #" . $this->id;
     }
-    public static function NewSubscription($manager, Billable $owner, Price $price, Coupon $coupon = null) {
+    public static function NewSubscription($manager, Billable $owner, Price $price, Coupon $coupon = null)
+    {
 
         // TODO: Check if discount still has valid usages per user
         // TODO: Check if discount still has valid usages total
         $coupon_data = null;
-        if ( ! is_null($coupon)) {
+        if (!is_null($coupon)) {
             $coupon_data = [
                 'code' => $coupon->code,
                 'discount' => $coupon->discount,
             ];
         }
         $aff_data = [];
-        if ( !is_null($owner->affiliate) ) {
+        if (!is_null($owner->affiliate)) {
             $aff_data = [
                 'affiliate_id' => $owner->affiliate->getKey(),
                 'affiliate_type' => get_class($owner->affiliate),
@@ -126,7 +147,7 @@ class Subscription extends Model
         $this->forceFill(['status' => 'Active'])->save();
         $m = app($this->manager);
 
-        if ( !$m->initSubscription($this) ) {
+        if (!$m->initSubscription($this)) {
             event(new SubscriptionInitFailed($this));
             return null;
         }
@@ -143,6 +164,64 @@ class Subscription extends Model
         event(new SubscriptionCanceled($this));
     }
 
+    /**
+     * @return bool true if the subscription is active and there are no invoices(new subscriptions)
+     * @return bool true for daily packages if the last invoice is paid and there's less than 24 hours left
+     * @return bool true for weekly packages if the last invoice is paid and there's less than 48 hours left
+     * @return bool true for monthly packages if the last invoice is paid and there's less than 72 hours left
+     * @return bool true for yearly packages if the last invoice is paid and there's less than 7 days left
+     * @return bool false otherwise
+     */
+    public function mustIssueNewInvoice(bool $emitEvent = true)
+    {
+        if ($emitEvent) {
+            $result = $this->mustIssueNewInvoice(false);
+            if ($result) {
+                event(new SubscriptionNewInvoice($this));
+            }
+            return $result;
+        }
+        $lastInvoice = $this->latestInvoice;
+
+        $active = $this->isActive();
+
+        if (!$active) {
+            return false;
+        }
+
+        // subscription has no invoices
+        if ($lastInvoice == null) {
+            return true;
+        }
+
+        // we already have one, no need for a new one
+        if (in_array($lastInvoice->status, ['due', 'overdue'])) {
+            return false;
+        }
+
+        // the latest invoice is paid, if the remaining time is less than window
+        // issue new invoice
+        if (!$this->expires_at || $this->expires_at->isPast()) {
+            return true;
+        }
+        $expireDays = (int)(Carbon::now()->diff($this->expires_at))->format('%a');
+        $billingPeriod = $this->price->billing_period;
+
+        switch ($billingPeriod) {
+            case '1d':
+                return $expireDays < 1;
+            case '1w':
+                return $expireDays < 2;
+            case '1m':
+                return $expireDays < 3;
+            case '1y':
+                return $expireDays < 7;
+
+            default:
+                throw new \Exception("Invalid Billing Period: " . $billingPeriod);
+        }
+    }
+
     public function end($reason)
     {
         $this->addOrUpdateMeta('end_reason', $reason);
@@ -152,14 +231,17 @@ class Subscription extends Model
         event(new SubscriptionEnded($this));
     }
 
-    public function scopeActive($query) {
+    public function scopeActive($query)
+    {
         return $query->where('status', 'Active');
     }
-    public function isActive() {
+    public function isActive()
+    {
         return $this->status == 'Active';
     }
 
-    public function isOff() {
+    public function isOff()
+    {
         return $this->status == 'Ended';
     }
 }

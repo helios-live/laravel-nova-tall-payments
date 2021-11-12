@@ -7,5 +7,6 @@ return [
 	// minutes
 	'cookie_lifetime' => 90 * 24 * 60,
 	'affiliate_param' => 'r',
-	'disable_payment_methods' => [ 'bitcoin', ],
+	'disable_payment_methods' => ['bitcoin',],
+	'feature_map' => [],
 ];

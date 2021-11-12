@@ -26,6 +26,7 @@ class LaravelPaymentsProvider extends ServiceProvider
 {
     protected $policies = [
         Invoice::class => InvoicePolicy::class,
+        Price::class => PricePolicy::class,
         Subscription::class => SubscriptionPolicy::class,
     ];
     /**
@@ -35,16 +36,17 @@ class LaravelPaymentsProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('larapay', function ($app) { return new Larapay(); });
+        $this->app->bind('larapay', function ($app) {
+            return new Larapay();
+        });
         $this->app->register(EventServiceProvider::class);
-        $this->mergeConfigFrom( __DIR__.'/../config/larapay.php', 'larapay'  );
+        $this->mergeConfigFrom(__DIR__ . '/../config/larapay.php', 'larapay');
 
 
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $loader->alias('Subscription', Subscription::class);
         $loader->alias('Payment', Payment::class);
         $loader->alias('Invoice', Invoice::class);
-
     }
 
     /**
@@ -62,14 +64,14 @@ class LaravelPaymentsProvider extends ServiceProvider
         Livewire::component('larapay::team-billing-manager', TeamBillingManager::class);
         Livewire::component('larapay::invoice-manager', InvoiceManager::class);
 
-        $this->publishes([ 
-            __DIR__.'/../config/larapay.php' => config_path('larapay.php'), 
-            __DIR__.'/../config/paypal.php' => config_path('paypal.php'), 
+        $this->publishes([
+            __DIR__ . '/../config/larapay.php' => config_path('larapay.php'),
+            __DIR__ . '/../config/paypal.php' => config_path('paypal.php'),
         ]);
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        if ( $this->app->env == "testing") {
+        if ($this->app->env == "testing") {
             $this->loadMigrationsFrom(__DIR__ . '/../tests/database/migrations');
         }
 
@@ -84,7 +86,7 @@ class LaravelPaymentsProvider extends ServiceProvider
                 CronSubscriptions::class,
             ]);
         }
-        
+
         $this->registerPolicies();
     }
     public function registerPolicies()

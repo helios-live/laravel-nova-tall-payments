@@ -47,7 +47,7 @@ class Invoice extends Model
     use HasFactory;
     use Metable;
     use Actionable;
-    
+
     protected $casts = [
         'due_at' => 'datetime',
     ];
@@ -56,12 +56,27 @@ class Invoice extends Model
     protected $dispatchesEvents = [
         'created' => InvoiceCreated::class,
     ];
-    public function getRouteKeyName(){ return 'uuid'; }
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 
-    public function owner() { return $this->morphTo(); }
-    public function subscription() { return $this->belongsTo(Subscription::class); }
-    public function payments() { return $this->hasMany(Payment::class); }
-    public function payment() { return $this->belongsTo(Payment::class, 'payment_id'); }
+    public function owner()
+    {
+        return $this->morphTo();
+    }
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class);
+    }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class, 'payment_id');
+    }
 
 
     public function getStatusAttribute()
@@ -75,38 +90,40 @@ class Invoice extends Model
             return 'paid';
         }
 
-        if ( Carbon::now() > $this->due_at ) {
+        if (Carbon::now() > $this->due_at) {
             return 'overdue';
         }
 
         return 'due';
     }
-    public function getNameAttribute() {
+    public function getNameAttribute()
+    {
         if ($this->subscription_id) {
             return $this->subscription->name;
         }
         return $this->owner->name;
     }
 
-    public function getDescription() {
+    public function getDescription()
+    {
 
         // if the invoice has a description set, use that
-        if ( ! is_null($this->plus) && isset($this->plus->description) ) {
+        if (!is_null($this->plus) && isset($this->plus->description)) {
             return $this->plus->description;
         }
 
         // if the invoice is part of a subscription, use that name
-        if ( ! is_null( $this->subscription ) ) {
+        if (!is_null($this->subscription)) {
             return 'Subscription Payment: ' . $this->subscription->id;
         }
 
         // return a generic name
         return 'Invoice ' . $this->uuid;
-
     }
 
 
-    public function pay(string $gateway, string $id) {
+    public function pay(string $gateway, string $id)
+    {
 
 
         $p = $this->payments()->create([
@@ -121,17 +138,16 @@ class Invoice extends Model
             'payment_id' => $p->id,
             'refund_id' => null,
         ])->save();
-    
+
 
         $event = new InvoicePaid($this);
         $event->setGateway($gateway, $id);
         event($event);
     }
-    
+
     public function refund(string $gateway, string $id, $amount = null)
     {
-        if ( is_null($amount) || $amount > $this->amount )
-        {
+        if (is_null($amount) || $amount > $this->amount) {
             $amount = $this->amount;
         }
         $p = $this->payments()->create([
@@ -150,14 +166,12 @@ class Invoice extends Model
         $event = new InvoiceRefunded($this);
         $event->setGateway($gateway, $id);
         event($event);
-        
-        $this->subscription->end('Refunded');
 
+        $this->subscription->end('Refunded');
     }
 
-    public static function newUuid() {
+    public static function newUuid()
+    {
         return (string) Str::orderedUuid();
     }
-
-
 }

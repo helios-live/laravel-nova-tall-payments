@@ -39,14 +39,18 @@ class Price extends Model
 
     protected $guarded = [];
 
+    protected $prevent_delete = ['subscriptions'];
+
     public static $period_map = [
-        [   '1d' => '1 day',
+        [
+            '1d' => '1 day',
             '1w' => '1 week',
             '1m' => '1 month',
             '1q' => '3 months',
             '1y' => '1 year'
         ],
-        [   '1d' => 'daily',
+        [
+            '1d' => 'daily',
             '1w' => 'weekly',
             '1m' => 'monthly',
             '1q' => 'quarterly',
@@ -59,19 +63,33 @@ class Price extends Model
         'payload' => 'object',
     ];
 
-    public function getRouteKeyName() { return 'slug'; }
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
-    public function product(){ return $this->belongsTo(Product::class); }
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
 
 
-    public function scopeActive($query) { return $query->where('status', '=', '1'); }
+    public function scopeActive($query)
+    {
+        return $query->where('status', '=', '1');
+    }
 
     /**
      * priceWithDiscount
      * @param Coupon $coupon
      * @return amount in cents
      */
-    public function priceWithDiscount(Coupon $coupon = null) {
+    public function priceWithDiscount(Coupon $coupon = null)
+    {
         $base_price = $this->amount;
 
         if (is_null($coupon)) {
@@ -80,9 +98,9 @@ class Price extends Model
 
         $discount = $coupon->discount;
 
-        if ( $discount->type == Coupon::TYPE_FIXED ) {
+        if ($discount->type == Coupon::TYPE_FIXED) {
             $discounted_price = $base_price - $coupon->amount;
-        } else if ($discount->type == Coupon::TYPE_PERCENTAGE ) {
+        } else if ($discount->type == Coupon::TYPE_PERCENTAGE) {
             $discounted_price = $base_price * $coupon->amount / 100;
         }
 
@@ -91,9 +109,11 @@ class Price extends Model
 
     public function getNextPeriodFrom(Carbon $date)
     {
-        return $date->add(Price::$period_map[0][ $this->billing_period ]);
+        return $date->add(Price::$period_map[0][$this->billing_period]);
     }
 
-    public function getPeriodAttribute() { return Price::$period_map[1][ $this->billing_period]; }
-
+    public function getPeriodAttribute()
+    {
+        return Price::$period_map[1][$this->billing_period];
+    }
 }
