@@ -14,7 +14,8 @@
                 "AlexEftimie\\LaravelPayments\\LaravelPaymentsProvider"
             ],
             "aliases": {
-                "Larapay": "AlexEftimie\\LaravelPayments\\Facades\\Larapay"
+                "Larapay": "AlexEftimie\\LaravelPayments\\Facades\\Larapay",
+                "Product": "AlexEftimie\\LaravelPayments\\Models\\Product"
             }
         }
     },
