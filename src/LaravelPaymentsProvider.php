@@ -20,12 +20,15 @@ use AlexEftimie\LaravelPayments\Livewire\InvoiceManager;
 use AlexEftimie\LaravelPayments\Livewire\TeamBillingManager;
 use AlexEftimie\LaravelPayments\Policies\SubscriptionPolicy;
 use AlexEftimie\LaravelPayments\Console\Commands\CronSubscriptions;
+use AlexEftimie\LaravelPayments\Models\Log;
+use AlexEftimie\LaravelPayments\Policies\LogPolicy;
 
 // "AlexEftimie\\LaravelPayments\\": "vendor/alexeftimie/laravel-payments/src/"
 class LaravelPaymentsProvider extends ServiceProvider
 {
     protected $policies = [
         Invoice::class => InvoicePolicy::class,
+        Log::class => LogPolicy::class,
         Price::class => PricePolicy::class,
         Subscription::class => SubscriptionPolicy::class,
     ];
