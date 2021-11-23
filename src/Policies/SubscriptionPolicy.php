@@ -23,7 +23,9 @@ class SubscriptionPolicy
 
     public function before(User $user, $ability)
     {
-        return $user->isAdmin();
+        if ($user->isAdmin()) {
+            return true;
+        }
     }
 
     public function view(User $user, Subscription $subscription)
@@ -48,8 +50,8 @@ class SubscriptionPolicy
 
     public function manage(User $user, Subscription $subscription)
     {
-
         $team = $subscription->owner;
+
         if (!$user->hasTeamPermission($team, 'subscription:manage')) {
             return false;
         }
