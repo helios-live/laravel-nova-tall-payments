@@ -78,6 +78,7 @@ class Subscription extends Model
 
     protected $casts = [
         'expires_at' => 'datetime',
+        'payload' => 'object',
     ];
 
     public function latestInvoice()
@@ -132,6 +133,7 @@ class Subscription extends Model
             'coupon' => $coupon_data,
             'expires_at' => null,
             'status' => 'New',
+            'payload' => $price->payload,
         ] + $aff_data);
 
         $sub->save();
@@ -243,5 +245,10 @@ class Subscription extends Model
     public function isOff()
     {
         return $this->status == 'Ended';
+    }
+
+    public function getPayload()
+    {
+        return $this->payload ?? $this->price->payload;
     }
 }
