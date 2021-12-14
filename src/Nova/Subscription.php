@@ -66,14 +66,15 @@ class Subscription extends Resource
             Text::make('Name', 'name')->asHtml()->readonly(),
 
             Text::make('Manage', function () {
-                $route = Larapay::getManagementRoute($this);
-                $link = route($route, $this);
+                $mod = $this->resource;
+                $route = Larapay::getManagementRoute($mod);
+                $link = route($route, $mod);
                 if ($route == 'invoice.show') {
-                    $invoice = $this->latestInvoice;
+                    $invoice = $mod->latestInvoice;
                     if ($invoice) {
-                        $link = route($route, $this->latestInvoice);
+                        $link = route($route, $mod->latestInvoice);
                     } else {
-                        $link = route('proxypanel::manage', $this);
+                        $link = route('proxypanel::manage', $mod);
                     }
                 }
                 return '<a href="' . $link . '" class="no-underline text-xl">⚙️</a>';
@@ -86,7 +87,7 @@ class Subscription extends Resource
 
             Text::make('Status')->readonly()->sortable(),
 
-            HasMany::make('Invoices', 'subscription_id', Invoice::class),
+            HasMany::make('Invoices', 'invoices', Invoice::class),
 
             Code::make('Payload')
                 ->help("If you change this payload, the next next payment cycle will be affected")
