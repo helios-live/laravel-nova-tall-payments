@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Resource;
 
 class Payment extends Resource
@@ -46,16 +47,19 @@ class Payment extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+
             Date::make('created_at'),
-            Currency::make('Amount')->asMinorUnits()->readonly(),
-            BelongsTo::make('Invoice', 'invoice_id', Invoice::class)
-                ->onlyOnForms()
+
+            Currency::make('Amount')
+                ->asMinorUnits()
                 ->hideWhenUpdating(),
-            Text::make('Invoice', function () {
-                return $this->invoice->name;
-            })
-                ->exceptOnForms()
-                ->asHtml(),
+
+            BelongsTo::make('Invoice', 'invoice', Invoice::class)
+                //     ->showOnIndex(true),
+                ->hideWhenUpdating(),
+            // ->asHtml(),
+            // ,
+            Code::make('Gateway')->json(),
         ];
     }
 

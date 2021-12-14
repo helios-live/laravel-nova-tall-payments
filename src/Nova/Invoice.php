@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Laravel\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\MorphTo;
@@ -64,26 +65,29 @@ class Invoice extends Resource
                 ->readonly(function () {
                     return $this->resource->exists;
                 }),
+
+            Date::make('Created At')->onlyOnIndex(true),
             DateTime::make('Created At', 'created_at')->default(function () {
                 return Carbon::now();
-            }),
+            })->hideFromIndex(),
+
+            Date::make('Due At')->onlyOnIndex(true),
             DateTime::make('Due At', 'due_at')->default(function () {
                 return Carbon::parse('+24 hours');
-            }),
+            })->hideFromIndex(),
             Text::make('Status', function () {
                 return view('nova.partials.invoice-status', [
                     'status' => $this->status,
                 ])->render();
             })->asHtml(),
+
             $this->ownerField($ref),
+
             BelongsTo::make('Subscription')
-                ->onlyOnForms()
                 ->hideWhenUpdating()
                 ->nullable(),
-            Text::make('Subscription', function () {
-                return $this->subscription->name;
-            })->exceptOnForms()->asHtml(),
-            HasMany::make('Payments', 'subscription_id', Payment::class),
+
+            HasMany::make('Payments', 'payments', Payment::class),
         ];
     }
 
