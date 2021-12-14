@@ -55,11 +55,17 @@ class Payment extends Resource
                 ->hideWhenUpdating(),
 
             BelongsTo::make('Invoice', 'invoice', Invoice::class)
-                //     ->showOnIndex(true),
                 ->hideWhenUpdating(),
-            // ->asHtml(),
-            // ,
+
             Code::make('Gateway')->json(),
+
+            Text::make('Gateway', function () {
+                return $this->resource->gateway->Name ?? '-';
+            })->exceptOnForms(),
+
+            Text::make('ID', function () {
+                return $this->resource->gateway->EID ?? '-';
+            })->exceptOnForms()
         ];
     }
 
