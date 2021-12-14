@@ -8,10 +8,13 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use AlexEftimie\LaravelPayments\Larapay;
+use AlexEftimie\LaravelPayments\Models\Log;
 use AlexEftimie\LaravelPayments\Models\Invoice;
 use AlexEftimie\LaravelPayments\Models\Payment;
+use AlexEftimie\LaravelPayments\Policies\LogPolicy;
 use AlexEftimie\LaravelPayments\Models\Subscription;
 use AlexEftimie\LaravelPayments\EventServiceProvider;
 use AlexEftimie\LaravelPayments\Components\ButtonLink;
@@ -20,8 +23,7 @@ use AlexEftimie\LaravelPayments\Livewire\InvoiceManager;
 use AlexEftimie\LaravelPayments\Livewire\TeamBillingManager;
 use AlexEftimie\LaravelPayments\Policies\SubscriptionPolicy;
 use AlexEftimie\LaravelPayments\Console\Commands\CronSubscriptions;
-use AlexEftimie\LaravelPayments\Models\Log;
-use AlexEftimie\LaravelPayments\Policies\LogPolicy;
+use AlexEftimie\LaravelPayments\Nova\Subscription as NovaSubscription;
 
 // "AlexEftimie\\LaravelPayments\\": "vendor/alexeftimie/laravel-payments/src/"
 class LaravelPaymentsProvider extends ServiceProvider
@@ -59,6 +61,18 @@ class LaravelPaymentsProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        $dr = Config::get('nova.dynamic_resources') ?? [];
+        $scanned_directory = array_diff(scandir(__DIR__ . '/Nova/'), array('..', '.'));
+        foreach ($scanned_directory as $file) {
+            if (substr($file, -4) != ".php") {
+                continue;
+            }
+            $name = substr($file, 0, -4);
+            $dr['alex-eftimie/laravel-payments/' . $name] = 'AlexEftimie\\LaravelPayments\\Nova\\' . $name;
+        }
+
+        Config::set('nova.dynamic_resources', $dr);
 
         require __DIR__ . '/routes.php';
 

@@ -51,7 +51,7 @@ class InvoicePolicy
         return $user->isAdmin();
     }
 
-    public function create(User $user, Invoice $subscription)
+    public function create(User $user)
     {
         return $user->isAdmin();
     }

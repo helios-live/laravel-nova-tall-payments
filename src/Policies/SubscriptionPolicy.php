@@ -33,7 +33,7 @@ class SubscriptionPolicy
         return $user->isAdmin();
     }
 
-    public function create(User $user, Subscription $subscription)
+    public function create(User $user)
     {
         return $user->isAdmin();
     }

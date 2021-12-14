@@ -104,6 +104,9 @@ class Subscription extends Model
 
     public function getNameAttribute()
     {
+        if (is_null($this->price)) {
+            return "Invalid #" . $this->id;
+        }
         return $this->price->product->name . " - " . $this->price->name . " #" . $this->id;
     }
     public static function NewSubscription($manager, Billable $owner, Price $price, Coupon $coupon = null)
