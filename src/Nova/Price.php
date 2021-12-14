@@ -58,7 +58,7 @@ class Price extends Resource
             Text::make('Product', function () {
                 return $this->product->name;
             })->exceptOnForms()->asHtml(),
-            BelongsTo::make('Product', 'product_id', Product::class)->onlyOnForms(),
+            BelongsTo::make('Product', 'product', Product::class)->onlyOnForms(),
             Text::make('Name')
                 ->rules('required', 'max:255')
                 ->asHtml(),
