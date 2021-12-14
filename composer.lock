@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "937eb67352c7eb407847988bdca8aab2",
+    "content-hash": "dd48957b55dbafac046d44d3879e738d",
     "packages": [
         {
             "name": "appstract/laravel-meta",
