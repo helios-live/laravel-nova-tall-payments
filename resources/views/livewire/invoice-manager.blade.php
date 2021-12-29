@@ -1,19 +1,27 @@
 <div x-data="{status: @entangle('status')}">
 
-    <div class="flex justify-between">
-        @if (Gate::check('refund', $invoice))
-            <x-jet-danger-button x-show="status == 'paid'" wire:click="confirmRefund(true)">{{ __('Refund') }}</x-jet-danger-button>
+    <div class="flex justify-end">
+        @if (Gate::allows('refund', $invoice) && $status == 'paid')
+            <x-jet-danger-button class="mr-4" wire:click="confirmRefund(true)">{{ __('Refund') }}</x-jet-danger-button>
         @endif
-        @if(!$invoice->subscription->isOff())
-            <x-jet-button x-show="status != 'paid'" wire:click="$set('isOpen', true)">{{ __('Pay') }}</x-jet-button>
+
+        @if($status=='paid')
+            @if(Larapay::isBillable())
+            <x-jet-button @click="window.location='{{route(Larapay::downloadInvoiceRoute(), $invoice)}}'">{{ __('Download') }}</x-jet-button>
+            @endif
+        @elseif(!$invoice->subscription->isOff())
+            @if(!Larapay::isBillable())
+                <x-jet-button @click="window.location='{{route('teams.show', auth()->user()->currentTeam)}}#team-billing'">{{ __('Setup Billing') }}</x-jet-button>
+            @else
+                <x-jet-button x-show="status != 'paid'" wire:click="$set('isOpen', true)">{{ __('Pay') }}</x-jet-button>
+            @endif
         @endif
-        {{-- <x-jet-button x-show="status == 'paid'" wire:click="download">{{ __('Download') }}</x-jet-button> --}}
     </div>
 
     <!-- Gateway Modal -->
     <x-jet-dialog-modal wire:model="isOpen">
         <x-slot name="title">
-            {{ __('Choose Payment Method') }}:{{ $isOpen ? 'ye' : 'no'}}
+            {{ __('Choose Payment Method') }}
         </x-slot>
 
         <x-slot name="content">

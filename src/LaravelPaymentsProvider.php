@@ -42,7 +42,7 @@ class LaravelPaymentsProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('larapay', function ($app) {
-            return new Larapay();
+            return app(Larapay::class);
         });
         $this->app->register(EventServiceProvider::class);
         $this->mergeConfigFrom(__DIR__ . '/../config/larapay.php', 'larapay');

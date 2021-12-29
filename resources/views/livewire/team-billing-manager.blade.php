@@ -18,36 +18,36 @@
             			<x-jet-label value="{{ __('Team Subscriptions') }}" />
                             <div class="relative z-0 mt-1 border border-gray-200 rounded-lg cursor-pointer">
 			                @foreach ($team->subscriptions()->orderBy('id', 'desc')->get() as $index => $sub)
-                                    <div class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue {{ $index > 0 ? 'border-t border-gray-200 rounded-t-none' : '' }} {{ ! $loop->last ? 'rounded-b-none' : '' }}"
-                                                    {{-- wire:click="$set('addTeamMemberForm.role', '{{ false }}')" --}}
-                                                    >
-                                        <div class="w-1/2 {{ $sub->status == 'Ended' ? 'opacity-50' : '' }}">
-                                            <!-- Role Name -->
-                                            <div class="flex items-center">
-                                                <div class="text-sm text-gray-600">
-                                                    {{ $sub->name }}
-                                                </div>
-
-                                                @if ( $sub->status == 'Active' )
-                                                    <svg class="ml-2 h-5 w-5 text-green-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                                @endif
+                                <div wire:key="sub-{{$sub->id}}" class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue {{ $index > 0 ? 'border-t border-gray-200 rounded-t-none' : '' }} {{ ! $loop->last ? 'rounded-b-none' : '' }}"
+                                                {{-- wire:click="$set('addTeamMemberForm.role', '{{ false }}')" --}}
+                                                >
+                                    <div class="w-1/2 {{ $sub->status == 'Ended' ? 'opacity-50' : '' }}">
+                                        <!-- Role Name -->
+                                        <div class="flex items-center">
+                                            <div class="text-sm text-gray-600">
+                                                {{ $sub->name }}
                                             </div>
 
-                                            <!-- Role Description -->
-                                            <div class="mt-2 text-xs text-gray-600">
-                                                {{Larapay::formatPrice($sub->current_price)}} / {{Larapay::formatPeriod($sub)}} /
-                                                {{ $sub->status }}
-                                            </div>
+                                            @if ( $sub->status == 'Active' )
+                                                <svg class="ml-2 h-5 w-5 text-green-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                            @endif
                                         </div>
-                                        <div class="w-1/2 text-right pt-1">
-                                                @if ( $sub->status == 'Active' )
 
-	                                                <x-jet-button class="ml-2" wire:click="manageSubscription('{{$sub->id}}')" wire:loading.attr="disabled">
-										                {{ __('Manage') }}
-										            </x-jet-button>
-                                                @endif
+                                        <!-- Role Description -->
+                                        <div class="mt-2 text-xs text-gray-600">
+                                            {{Larapay::formatPrice($sub->current_price)}} / {{Larapay::formatPeriod($sub)}} /
+                                            {{ $sub->status }}
                                         </div>
                                     </div>
+                                    <div class="w-1/2 text-right pt-1">
+                                            @if ( $sub->status == 'Active' )
+
+                                                <x-jet-button class="ml-2" wire:click="manageSubscription('{{$sub->id}}')" wire:loading.attr="disabled">
+                                                    {{ __('Manage') }}
+                                                </x-jet-button>
+                                            @endif
+                                    </div>
+                                </div>
 			                @endforeach
 			            </div>
                     </div>
@@ -95,18 +95,8 @@
                                             {{Larapay::formatPrice($invoice->amount)}} / {{ $invoice->uuid }}
                                         </div>
                                     </a>
-                                    <div class="w-1/2 text-right pt-1">
-                                            @if (is_null($invoice->paid_at))
-
-                                                <x-jet-button class="ml-2" wire:click="choosePaymentMethod('{{$invoice->uuid}}')" wire:loading.attr="disabled">
-                                                    {{ __('Pay') }}
-                                                </x-jet-button>
-                                            @else
-
-                                                <x-jet-button class="ml-2" wire:click="downloadInvoice('{{$invoice->uuid}}')" wire:loading.attr="disabled">
-                                                    {{ __('Download') }}
-                                                </x-jet-button>
-                                            @endif
+                                    <div class="w-1/2">
+                                        @livewire('larapay::invoice-manager', ['invoice' => $invoice, 'status' => $invoice->status])
                                     </div>
                                 </div>
 			                @endforeach

@@ -29,10 +29,25 @@ class InvoicePolicy
     public function pay(User $user, Invoice $invoice)
     {
         $team = $invoice->owner;
+        if (!$user->belongsToTeam($team)) {
+            return false;
+        }
         if (!$user->hasTeamPermission($team, 'billing:pay')) {
             return false;
         }
-        return $user->belongsToTeam($team);
+        return true;
+    }
+
+    public function download(User $user, Invoice $invoice)
+    {
+        $team = $invoice->owner;
+        if (!$user->belongsToTeam($team)) {
+            return false;
+        }
+        if (!$user->hasTeamPermission($team, 'billing:pay')) {
+            return false;
+        }
+        return true;
     }
 
     public function payManual(User $user)

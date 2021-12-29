@@ -7,6 +7,7 @@ use NumberFormatter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use AlexEftimie\LaravelPayments\Billable;
+use AlexEftimie\LaravelPayments\Contracts\InvoiceManager;
 use AlexEftimie\LaravelPayments\Models\Price;
 use AlexEftimie\LaravelPayments\Models\Invoice;
 use AlexEftimie\LaravelPayments\Models\Subscription;
@@ -24,9 +25,11 @@ class Larapay
 
     protected $gateways = [];
 
-    public function __construct()
-    {
+    protected $invoice_manager = null;
 
+    public function __construct(InvoiceManager $manager = null)
+    {
+        $this->invoice_manager = $manager;
         $this->gateways = [
             'admin' => [
                 'name' => 'Admin',
@@ -254,6 +257,20 @@ class Larapay
         return $this->processResult($result, $gateway, $invoice);
     }
 
+    /**
+     * @see \AlexEftimie\LaravelPayments\Contracts\InvoiceManager
+     * @return true if no invoice manager is bound
+     * @return true if team billing is set
+     * @return false otherwise
+     */
+    public function isBillable()
+    {
+        return $this->invoice_manager ? $this->invoice_manager->isBillingSetUp() : true;
+    }
+    public function downloadInvoiceRoute()
+    {
+        return optional($this->invoice_manager)->downloadRoute();
+    }
     // public function ShowGatewayForm(Request $request, string $gateway, Invoice $invoice) {
 
     //     $gw = LarapayFacade::driver($gateway);
