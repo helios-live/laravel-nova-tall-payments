@@ -17,6 +17,7 @@ use AlexEftimie\LaravelPayments\Models\Payment;
 use AlexEftimie\LaravelPayments\Policies\LogPolicy;
 use AlexEftimie\LaravelPayments\Models\Subscription;
 use AlexEftimie\LaravelPayments\EventServiceProvider;
+use AlexEftimie\LaravelPayments\Policies\PricePolicy;
 use AlexEftimie\LaravelPayments\Components\ButtonLink;
 use AlexEftimie\LaravelPayments\Policies\InvoicePolicy;
 use AlexEftimie\LaravelPayments\Livewire\InvoiceManager;

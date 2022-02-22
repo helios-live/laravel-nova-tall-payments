@@ -14,7 +14,7 @@ class AddFeaturesToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->json('features')->after('skumodel');
+            $table->json('features')->nullable()->after('skumodel');
         });
     }
 
