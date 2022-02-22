@@ -20,6 +20,7 @@ use AlexEftimie\LaravelPayments\Facades\Larapay;
 use AlexEftimie\LaravelPayments\Nova\Actions\EndSubscription;
 use AlexEftimie\LaravelPayments\Nova\Actions\SyncSubscription;
 use AlexEftimie\LaravelPayments\Nova\Actions\CancelSubscription;
+use AlexEftimie\LaravelPayments\Nova\Filters\SubscriptionStatus;
 
 class Subscription extends Resource
 {
@@ -116,7 +117,9 @@ class Subscription extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            SubscriptionStatus::make(),
+        ];
     }
 
     /**
