@@ -27,6 +27,8 @@ class Larapay
 
     protected $invoice_manager = null;
 
+    protected $product_features = [];
+
     public function __construct(InvoiceManager $manager = null)
     {
         $this->invoice_manager = $manager;
@@ -270,6 +272,14 @@ class Larapay
     public function downloadInvoiceRoute()
     {
         return optional($this->invoice_manager)->downloadRoute();
+    }
+
+    public function productFeatures($features = null)
+    {
+        if (!is_null($features)) {
+            $this->product_features = $features;
+        }
+        return $this->product_features;
     }
     // public function ShowGatewayForm(Request $request, string $gateway, Invoice $invoice) {
 

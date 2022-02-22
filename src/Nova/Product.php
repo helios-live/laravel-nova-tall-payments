@@ -12,7 +12,9 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Boolean;
 
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\BooleanGroup;
 use AlexEftimie\LaravelPayments\Nova\Price;
+use AlexEftimie\LaravelPayments\Facades\Larapay;
 
 class Product extends Resource
 {
@@ -66,7 +68,9 @@ class Product extends Resource
                 ->sortable(),
             Boolean::make('Status')
                 ->withMeta(["value" => 1]),
-            HasMany::make('Prices', 'product_id', Price::class)
+
+            BooleanGroup::make('Features')->options(Larapay::productFeatures()),
+            HasMany::make('Prices', 'prices', Price::class),
         ];
     }
 

@@ -78,7 +78,7 @@ class Price extends Resource
                 ->sortable(),
             Boolean::make('Status')
                 ->withMeta(["value" => 1]),
-            HasMany::make('Subscriptions', 'subscription', Subscription::class),
+            HasMany::make('Subscriptions', 'subscriptions', Subscription::class),
         ];
     }
 

@@ -34,12 +34,30 @@ class Product extends Model
 {
     public $with = ['prices'];
 
-    public function getRouteKeyName() { return 'slug'; }
+    protected $casts = [
+        'features' => 'array'
+    ];
 
-    public function prices() { return $this->hasMany(Price::class)->orderBy('order', 'desc'); }
-    public function subscriptions() { return $this->hasMany(Subscription::class); }
-    public function category() { return $this->belongsTo(Category::class); }
-    
-    public function scopeActive($query) { return $query->where('status', '=', '1'); }
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
+    public function prices()
+    {
+        return $this->hasMany(Price::class)->orderBy('order', 'desc');
+    }
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', '=', '1');
+    }
 }
