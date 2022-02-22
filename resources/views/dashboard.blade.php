@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
+            <div class="bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 sm:px-20 bg-primary text-hero border-b border-gray-300">
                     <div>
                         <x-jet-application-logo class="block h-12 w-auto" />
@@ -20,8 +20,34 @@
                     <div class="mt-6 text-gray-500">
                     </div>
                 </div>
+                <div x-data="{status:['Active', 'New']}" @set-status="status = $event.detail" class="relative border-t border-gray-200 bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2">
+                    <div x-show="false" class="text-xl p-4 text-center col-span-full">Loading...</div>
+                    <div class="absolute right-2 top-2">
+                        <x-jet-dropdown align="right" width="120">
+                            <x-slot name="trigger">
+                                <a href="javascript:" class="text-gray-500">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="filter" class="fill-current hover:text-black" role="img" xmlns="http://www.w3.org/2000/svg" width="16"
+                                    height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M487.976 0H24.028C2.71 0-8.047 25.866 7.058 40.971L192 225.941V432c0 7.831 3.821 15.17 10.237 19.662l80 55.98C298.02 518.69 320 507.493 320 487.98V225.941l184.947-184.97C520.021 25.896 509.338 0 487.976 0z"></path></svg>
+                                </a>
+                            </x-slot>
+                            <x-slot name="content">
+                                <div class="w-64" x-data="{status: ['Active', 'New']}" @set-status="status = $event.detail">
 
-                <div class="border-t border-gray-200 bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2">
+                                    <x-jet-dropdown-link href="javascript: " x-bind:class="{'font-extrabold': status.toString() == 'Active,New'}" @click="$dispatch('set-status', ['Active', 'New'])">
+                                        {{ __('Active & New') }}
+                                    </x-jet-dropdown-link>
+
+                                    <x-jet-dropdown-link href="javascript: " x-bind:class="{'font-extrabold': status.toString() == 'Ended,Suspended'}"  @click="$dispatch('set-status', ['Ended', 'Suspended'])">
+                                        {{ __('Ended') }}
+                                    </x-jet-dropdown-link>
+
+                                    <x-jet-dropdown-link href="javascript: " x-bind:class="{'font-extrabold': status.toString() == ''}"  @click="$dispatch('set-status', [])">
+                                        {{ __('All') }}
+                                    </x-jet-dropdown-link>
+                                </div>
+                            </x-slot>
+                        </x-jet-dropdown>
+                    </div>
                     @php
                         $index = 0;
                         $len = count($subscriptions);
@@ -31,8 +57,8 @@
                             $lastline = $len % 2 ? $index == $len - 1 : $index >= $len - 2;
                             $status = $sub->status;
                         @endphp
-                        <div
-                            class="p-6 border-gray-200
+                        <div x-cloak x-show="!status.length || status.indexOf('{{ $status }}') != -1"
+                            class="p-6 border-gray-200 
                         @if (!$lastline) border-b @endif
                         @if (!($index % 2)) border-r @endif
                         @if ($loop->last && !($index % 2)) border-r @endif

@@ -6,7 +6,7 @@
         @endif
 
         @if($status=='paid')
-            @if(Larapay::isBillable())
+            @if(Larapay::isBillable() && Larapay::haveInvoiceManager())
             <x-jet-button @click="window.location='{{route(Larapay::downloadInvoiceRoute(), $invoice)}}'">{{ __('Download') }}</x-jet-button>
             @endif
         @elseif(!$invoice->subscription->isOff())

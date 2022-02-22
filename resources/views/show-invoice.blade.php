@@ -20,7 +20,7 @@
 @endphp
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <?php json_encode($invoice); ?>
                 <!-- Card is full width. Use in 12 col grid for best view. -->
                 <!-- Card code block start -->

@@ -273,6 +273,10 @@ class Larapay
     {
         return optional($this->invoice_manager)->downloadRoute();
     }
+    public function haveInvoiceManager()
+    {
+        return !is_null($this->invoice_manager);
+    }
 
     public function productFeatures($features = null)
     {
