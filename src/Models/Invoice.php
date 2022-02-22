@@ -12,6 +12,7 @@ use AlexEftimie\LaravelPayments\Models\Subscription;
 use AlexEftimie\LaravelPayments\Events\InvoiceCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use AlexEftimie\LaravelPayments\Events\InvoiceRefunded;
+use AlexEftimie\LaravelPayments\Events\PayingInvoice;
 use AlexEftimie\LaravelPayments\Events\SubscriptionStarted;
 use Laravel\Nova\Actions\Actionable;
 
@@ -140,7 +141,7 @@ class Invoice extends Model
         ])->save();
 
 
-        $event = new InvoicePaid($this);
+        $event = new PayingInvoice($this);
         $event->setGateway($gateway, $id);
         event($event);
     }
