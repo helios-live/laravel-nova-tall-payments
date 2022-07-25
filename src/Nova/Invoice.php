@@ -13,8 +13,10 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\DateTime;
-use App\Nova\Traits\ReferralTrait;
+
 use Laravel\Nova\Fields\BelongsTo;
+use IdeaToCode\LaravelNovaTallPayments\Traits\ReferralTrait;
+use IdeaToCode\LaravelNovaTallPayments\Nova\Actions\RefundPayment;
 
 class Invoice extends Resource
 {
@@ -133,7 +135,7 @@ class Invoice extends Resource
     public function actions(Request $request)
     {
         return [
-            new \App\Nova\Actions\RefundPayment,
+            new RefundPayment,
         ];
     }
 
