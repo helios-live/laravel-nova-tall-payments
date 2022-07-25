@@ -1,12 +1,12 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Payments;
+namespace IdeaToCode\LaravelNovaTallPayments\Payments;
 
 use Illuminate\Http\Request;
 use Shakurov\Coinbase\Facades\Coinbase;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Log;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Facades\Larapay;
+use IdeaToCode\LaravelNovaTallPayments\Models\Log;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Facades\Larapay;
 use Shakurov\Coinbase\Models\CoinbaseWebhookCall;
 
 class CoinbaseGateway implements PaymentGatewayInterface

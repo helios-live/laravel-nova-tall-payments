@@ -1,11 +1,11 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Notifications;
+namespace IdeaToCode\LaravelNovaTallPayments\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class InvoiceCreated extends Notification

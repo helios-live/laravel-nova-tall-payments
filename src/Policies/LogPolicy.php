@@ -1,8 +1,8 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Policies;
+namespace IdeaToCode\LaravelNovaTallPayments\Policies;
 
-use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Log;
+use IdeaToCode\LaravelNovaTallPayments\Models\Log;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsaymentsayments\Mail;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

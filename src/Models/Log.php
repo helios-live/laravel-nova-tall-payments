@@ -1,12 +1,12 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Models;
+namespace IdeaToCode\LaravelNovaTallPayments\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * IdeaToCode\LaravelNovaTallPaymentsayments\Models\Log
+ * IdeaToCode\LaravelNovaTallPayments\Models\Log
  *
  * @property int $id
  * @property string $parent_type

@@ -1,11 +1,11 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Tests;
+namespace IdeaToCode\LaravelNovaTallPayments\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\Dusk\TestCase as BaseTestCase;
-use IdeaToCode\LaravelNovaTallPaymentsayments\LaravelPaymentsProvider;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Tests\SetupTests;
+use IdeaToCode\LaravelNovaTallPayments\LaravelPaymentsProvider;
+use IdeaToCode\LaravelNovaTallPayments\Tests\SetupTests;
 
 
 class FeatureTestCase extends BaseTestCase {

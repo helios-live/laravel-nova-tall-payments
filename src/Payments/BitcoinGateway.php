@@ -1,8 +1,8 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Payments;
+namespace IdeaToCode\LaravelNovaTallPayments\Payments;
 
-use IdeaToCode\LaravelNovaTallPaymentsayments\Facades\Larapay;
+use IdeaToCode\LaravelNovaTallPayments\Facades\Larapay;
 use Illuminate\Http\Request;
 
 class BitcoinGateway implements PaymentGatewayInterface

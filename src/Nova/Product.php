@@ -1,6 +1,6 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Nova;
+namespace IdeaToCode\LaravelNovaTallPayments\Nova;
 
 use Laravel\Nova\Resource;
 use Laravel\Nova\Fields\ID;
@@ -13,8 +13,8 @@ use Laravel\Nova\Fields\Boolean;
 
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BooleanGroup;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Nova\Price;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Facades\Larapay;
+use IdeaToCode\LaravelNovaTallPayments\Nova\Price;
+use IdeaToCode\LaravelNovaTallPayments\Facades\Larapay;
 
 class Product extends Resource
 {
@@ -24,7 +24,7 @@ class Product extends Resource
      *
      * @var string
      */
-    public static $model = \IdeaToCode\LaravelNovaTallPaymentsayments\Models\Product::class;
+    public static $model = \IdeaToCode\LaravelNovaTallPayments\Models\Product::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

@@ -1,11 +1,11 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Tests\Feature;
+namespace IdeaToCode\LaravelNovaTallPayments\Tests\Feature;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithFaker;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Price;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Tests\FeatureTestCase;
+use IdeaToCode\LaravelNovaTallPayments\Models\Price;
+use IdeaToCode\LaravelNovaTallPayments\Tests\FeatureTestCase;
 
 
 class PricesTest extends FeatureTestCase
@@ -17,11 +17,12 @@ class PricesTest extends FeatureTestCase
         $this->SetupSubscription();
     }
 
-    public function test_getNextPeriodFrom() {
+    public function test_getNextPeriodFrom()
+    {
         $periods = Price::$period_map[0];
 
         foreach ($periods as $key => $value) {
-            
+
 
             // test period
             $this->price->billing_period = $key;

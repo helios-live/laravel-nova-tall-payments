@@ -1,8 +1,8 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Models;
+namespace IdeaToCode\LaravelNovaTallPayments\Models;
 
-use IdeaToCode\LaravelNovaTallPaymentsayments\Traits\Loggable;
+use IdeaToCode\LaravelNovaTallPayments\Traits\Loggable;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 
 class Model extends BaseModel

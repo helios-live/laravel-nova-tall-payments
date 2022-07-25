@@ -1,6 +1,6 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Events;
+namespace IdeaToCode\LaravelNovaTallPayments\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;

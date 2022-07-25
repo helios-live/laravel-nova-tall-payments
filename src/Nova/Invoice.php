@@ -1,6 +1,6 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Nova;
+namespace IdeaToCode\LaravelNovaTallPayments\Nova;
 
 use App\Nova\Team;
 use Carbon\Carbon;
@@ -27,7 +27,7 @@ class Invoice extends Resource
      *
      * @var string
      */
-    public static $model = \IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice::class;
+    public static $model = \IdeaToCode\LaravelNovaTallPayments\Models\Invoice::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

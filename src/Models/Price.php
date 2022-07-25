@@ -1,14 +1,14 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Models;
+namespace IdeaToCode\LaravelNovaTallPayments\Models;
 
 use Carbon\Carbon;
 use Spatie\Tags\HasTags;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Model;
+use IdeaToCode\LaravelNovaTallPayments\Models\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * IdeaToCode\LaravelNovaTallPaymentsayments\Models\Price
+ * IdeaToCode\LaravelNovaTallPayments\Models\Price
  *
  * @property int $id
  * @property int $product_id
@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $billing_period
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \IdeaToCode\LaravelNovaTallPaymentsayments\Models\Product $product
+ * @property-read \IdeaToCode\LaravelNovaTallPayments\Models\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|Price newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Price newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Price query()

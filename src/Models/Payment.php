@@ -1,12 +1,12 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Models;
+namespace IdeaToCode\LaravelNovaTallPayments\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Model;
+use IdeaToCode\LaravelNovaTallPayments\Models\Model;
 
 /**
- * IdeaToCode\LaravelNovaTallPaymentsayments\Models\Payment
+ * IdeaToCode\LaravelNovaTallPayments\Models\Payment
  *
  * @property int $id
  * @property int $invoice_id
@@ -15,7 +15,7 @@ use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Model;
  * @property mixed $gateway
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice $invoice
+ * @property-read \IdeaToCode\LaravelNovaTallPayments\Models\Invoice $invoice
  * @property-read Payment|null $refundFor
  * @property-read Payment|null $refundPayment
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()

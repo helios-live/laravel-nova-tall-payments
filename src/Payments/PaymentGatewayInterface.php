@@ -1,9 +1,9 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Payments;
+namespace IdeaToCode\LaravelNovaTallPayments\Payments;
 
 use Illuminate\Http\Request;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
 
 interface PaymentGatewayInterface
 {

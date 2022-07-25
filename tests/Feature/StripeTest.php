@@ -1,12 +1,12 @@
 <?php
 
-namespace IdeaToCode\LaravelNovaTallPaymentsayments\Tests\Feature;
+namespace IdeaToCode\LaravelNovaTallPayments\Tests\Feature;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithFaker;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Price;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Tests\FeatureTestCase;
-use IdeaToCode\LaravelNovaTallPaymentsayments\Payments\StripeGateway;
+use IdeaToCode\LaravelNovaTallPayments\Models\Price;
+use IdeaToCode\LaravelNovaTallPayments\Tests\FeatureTestCase;
+use IdeaToCode\LaravelNovaTallPayments\Payments\StripeGateway;
 
 
 class StripeTest extends FeatureTestCase
@@ -19,7 +19,8 @@ class StripeTest extends FeatureTestCase
         parent::setUp();
     }
 
-    public function test_client_created() {
+    public function test_client_created()
+    {
         $gw = new StripeGateway();
 
         $client = $gw->getClient();
@@ -28,7 +29,8 @@ class StripeTest extends FeatureTestCase
     }
 
 
-    public function test_createCustomer() {
+    public function test_createCustomer()
+    {
         $gw = new StripeGateway();
 
         $client = $gw->getClient();
