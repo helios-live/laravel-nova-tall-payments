@@ -1,14 +1,14 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Tests\Feature;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Tests\Feature;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\WithFaker;
-use AlexEftimie\LaravelPayments\Models\Invoice;
-use AlexEftimie\LaravelPayments\Tests\FeatureTestCase;
-use AlexEftimie\LaravelPayments\Events\InvoicePaid;
-use AlexEftimie\LaravelPayments\Events\InvoiceCreated;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Tests\FeatureTestCase;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\InvoicePaid;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\InvoiceCreated;
 
 class PaymentsTest extends FeatureTestCase
 {

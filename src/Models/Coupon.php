@@ -1,12 +1,12 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Models;
+namespace IdeaToCode\LaravelNovaTallPayments\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AlexEftimie\LaravelPayments\Models\Model;
+use IdeaToCode\LaravelNovaTallPayments\Models\Model;
 
 /**
- * AlexEftimie\LaravelPayments\Models\Coupon
+ * IdeaToCode\LaravelNovaTallPayments\Models\Coupon
  *
  * @property int $code
  * @property mixed $discount
@@ -36,6 +36,12 @@ class Coupon extends Model
     use HasFactory;
     const TYPE_FIXED = "fixed";
     const TYPE_PERCENTAGE = "percentage";
-    public function getRouteKeyName() { return 'code'; }
-    public function getKeyName() { return 'code'; }
+    public function getRouteKeyName()
+    {
+        return 'code';
+    }
+    public function getKeyName()
+    {
+        return 'code';
+    }
 }

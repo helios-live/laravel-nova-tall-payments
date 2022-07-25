@@ -1,10 +1,10 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Listeners;
+namespace IdeaToCode\LaravelNovaTallPayments\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use AlexEftimie\LaravelPayments\Notifications\InvoicePaid as InvoicePaidNotification;
+use IdeaToCode\LaravelNovaTallPayments\Notifications\InvoicePaid as InvoicePaidNotification;
 
 class NotifyInvoicePaid
 {

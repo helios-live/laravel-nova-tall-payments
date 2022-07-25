@@ -1,10 +1,10 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Policies;
+namespace IdeaToCode\LaravelNovaTallPayments\Policies;
 
 use App\Models\User;
-use AlexEftimie\LaravelPayments\Models\Price;
-use AlexEftimie\LaravelPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Models\Price;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PricePolicy

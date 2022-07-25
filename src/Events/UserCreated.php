@@ -1,8 +1,8 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Events;
+namespace IdeaToCode\LaravelNovaTallPayments\Events;
 
-use AlexEftimie\LaravelPayments\Events\UserEvent;
+use IdeaToCode\LaravelNovaTallPayments\Events\UserEvent;
 
 class UserCreated extends UserEvent
 {

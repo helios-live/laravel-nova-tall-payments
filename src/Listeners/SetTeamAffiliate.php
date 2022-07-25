@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Listeners;
+namespace IdeaToCode\LaravelNovaTallPayments\Listeners;
 
 use Laravel\Jetstream\Events\TeamEvent;
 
@@ -8,23 +8,22 @@ use Laravel\Jetstream\Events\TeamEvent;
 
 class SetTeamAffiliate
 {
-    /**
-     * Handle the event.
-     *
-     * @param  object  $event
-     * @return void
-     */
-    public function handle(TeamEvent $event)
+	/**
+	 * Handle the event.
+	 *
+	 * @param  object  $event
+	 * @return void
+	 */
+	public function handle(TeamEvent $event)
 	{
 		$t = $event->team;
 		$o = $t->owner;
-		if ( is_null ($o) )
-		{
+		if (is_null($o)) {
 			return;
 		}
 		$aff = $o->affiliate;
-		
-		if ( !is_null($aff)) {
+
+		if (!is_null($aff)) {
 			$t->affiliate()->associate($aff);
 			$t->save();
 		}

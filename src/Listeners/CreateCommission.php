@@ -1,9 +1,9 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Listeners;
+namespace IdeaToCode\LaravelNovaTallPayments\Listeners;
 
 
-use AlexEftimie\LaravelPayments\Events\InvoiceEvent;
+use IdeaToCode\LaravelNovaTallPayments\Events\InvoiceEvent;
 use Carbon\Carbon;
 
 class CreateCommission
@@ -20,13 +20,12 @@ class CreateCommission
 
         $sub = $invoice->subscription;
 
-        if ( $sub->affiliate != null ) {
+        if ($sub->affiliate != null) {
 
             $commission = $sub->affiliate->commissions()->create([
                 'invoice_id' => $invoice->id,
                 'amount' => $invoice->amount * config('larapay.commission'),
             ]);
         }
-
     }
 }

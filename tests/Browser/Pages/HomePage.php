@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Tests\Browser\Pages;
+namespace IdeaToCode\LaravelNovaTallPayments\Tests\Browser\Pages;
 
 use Laravel\Dusk\Browser;
 

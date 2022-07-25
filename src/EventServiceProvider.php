@@ -1,30 +1,30 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments;
+namespace IdeaToCode\LaravelNovaTallPayments;
 
 use App\Listeners\EventLog;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Events\TeamCreated;
-use AlexEftimie\LaravelPayments\Models\Invoice;
-use AlexEftimie\LaravelPayments\Events\InvoicePaid;
-use AlexEftimie\LaravelPayments\Listeners\NotifyUser;
-use AlexEftimie\LaravelPayments\Events\InvoiceCreated;
-use AlexEftimie\LaravelPayments\Listeners\UpdateSales;
-use AlexEftimie\LaravelPayments\Events\InvoiceRefunded;
-use AlexEftimie\LaravelPayments\Listeners\CreatePayment;
-use AlexEftimie\LaravelPayments\Events\SubscriptionCreated;
-use AlexEftimie\LaravelPayments\Events\SubscriptionStarted;
-use AlexEftimie\LaravelPayments\Listeners\CreateCommission;
-use AlexEftimie\LaravelPayments\Listeners\SetTeamAffiliate;
-use AlexEftimie\LaravelPayments\Events\InvoicePaymentFailed;
-use AlexEftimie\LaravelPayments\Events\PayingInvoice;
-use AlexEftimie\LaravelPayments\Events\SubscriptionNewInvoice;
-use AlexEftimie\LaravelPayments\Listeners\NotifyInvoicePaid;
-use AlexEftimie\LaravelPayments\Listeners\ExtendSubscription;
-use AlexEftimie\LaravelPayments\Listeners\NotifyInvoiceCreated;
-use AlexEftimie\LaravelPayments\Listeners\SubscriptionCreateInvoice;
-use AlexEftimie\LaravelPayments\Listeners\NotifyInvoicePaymentFailed;
-use AlexEftimie\LaravelPayments\Listeners\SendInvoicePaid;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Events\InvoicePaid;
+use IdeaToCode\LaravelNovaTallPayments\Listeners\NotifyUser;
+use IdeaToCode\LaravelNovaTallPayments\Events\InvoiceCreated;
+use IdeaToCode\LaravelNovaTallPayments\Listeners\UpdateSales;
+use IdeaToCode\LaravelNovaTallPayments\Events\InvoiceRefunded;
+use IdeaToCode\LaravelNovaTallPayments\Listeners\CreatePayment;
+use IdeaToCode\LaravelNovaTallPayments\Events\SubscriptionCreated;
+use IdeaToCode\LaravelNovaTallPayments\Events\SubscriptionStarted;
+use IdeaToCode\LaravelNovaTallPayments\Listeners\CreateCommission;
+use IdeaToCode\LaravelNovaTallPayments\Listeners\SetTeamAffiliate;
+use IdeaToCode\LaravelNovaTallPayments\Events\InvoicePaymentFailed;
+use IdeaToCode\LaravelNovaTallPayments\Events\PayingInvoice;
+use IdeaToCode\LaravelNovaTallPayments\Events\SubscriptionNewInvoice;
+use IdeaToCode\LaravelNovaTallPayments\Listeners\NotifyInvoicePaid;
+use IdeaToCode\LaravelNovaTallPayments\Listeners\ExtendSubscription;
+use IdeaToCode\LaravelNovaTallPayments\Listeners\NotifyInvoiceCreated;
+use IdeaToCode\LaravelNovaTallPayments\Listeners\SubscriptionCreateInvoice;
+use IdeaToCode\LaravelNovaTallPayments\Listeners\NotifyInvoicePaymentFailed;
+use IdeaToCode\LaravelNovaTallPayments\Listeners\SendInvoicePaid;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider

@@ -1,10 +1,10 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Listeners;
+namespace IdeaToCode\LaravelNovaTallPayments\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use AlexEftimie\LaravelPayments\Notifications\InvoicePaymentFailed as InvoicePaymentFailedNotification;
+use IdeaToCode\LaravelNovaTallPayments\Notifications\InvoicePaymentFailed as InvoicePaymentFailedNotification;
 
 class NotifyInvoicePaymentFailed
 {

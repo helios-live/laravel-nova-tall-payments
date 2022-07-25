@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Nova;
+namespace IdeaToCode\LaravelNovaTallPayments\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class Payment extends Resource
      *
      * @var string
      */
-    public static $model = \AlexEftimie\LaravelPayments\Models\Payment::class;
+    public static $model = \IdeaToCode\LaravelNovaTallPayments\Models\Payment::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

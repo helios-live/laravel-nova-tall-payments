@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments;
+namespace IdeaToCode\LaravelNovaTallPayments;
 
 use Livewire\Livewire;
 use Illuminate\Foundation\Auth\User;
@@ -10,24 +10,23 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
-use AlexEftimie\LaravelPayments\Larapay;
-use AlexEftimie\LaravelPayments\Models\Log;
-use AlexEftimie\LaravelPayments\Models\Invoice;
-use AlexEftimie\LaravelPayments\Models\Payment;
-use AlexEftimie\LaravelPayments\Policies\LogPolicy;
-use AlexEftimie\LaravelPayments\Models\Subscription;
-use AlexEftimie\LaravelPayments\EventServiceProvider;
-use AlexEftimie\LaravelPayments\Policies\PricePolicy;
-use AlexEftimie\LaravelPayments\Components\ButtonLink;
-use AlexEftimie\LaravelPayments\Policies\InvoicePolicy;
-use AlexEftimie\LaravelPayments\Livewire\InvoiceManager;
-use AlexEftimie\LaravelPayments\Livewire\TeamBillingManager;
-use AlexEftimie\LaravelPayments\Policies\SubscriptionPolicy;
-use AlexEftimie\LaravelPayments\Console\Commands\CronSubscriptions;
-use AlexEftimie\LaravelPayments\Nova\Subscription as NovaSubscription;
+use IdeaToCode\LaravelNovaTallPayments\Larapay;
+use IdeaToCode\LaravelNovaTallPayments\Models\Log;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Models\Payment;
+use IdeaToCode\LaravelNovaTallPayments\Policies\LogPolicy;
+use IdeaToCode\LaravelNovaTallPayments\Models\Subscription;
+use IdeaToCode\LaravelNovaTallPayments\EventServiceProvider;
+use IdeaToCode\LaravelNovaTallPayments\Policies\PricePolicy;
+use IdeaToCode\LaravelNovaTallPayments\Components\ButtonLink;
+use IdeaToCode\LaravelNovaTallPayments\Policies\InvoicePolicy;
+use IdeaToCode\LaravelNovaTallPayments\Livewire\InvoiceManager;
+use IdeaToCode\LaravelNovaTallPayments\Livewire\TeamBillingManager;
+use IdeaToCode\LaravelNovaTallPayments\Policies\SubscriptionPolicy;
+use IdeaToCode\LaravelNovaTallPayments\Console\Commands\CronSubscriptions;
+use IdeaToCode\LaravelNovaTallPayments\Nova\Subscription as NovaSubscription;
 
-// "AlexEftimie\\LaravelPayments\\": "vendor/alexeftimie/laravel-payments/src/"
-class LaravelPaymentsProvider extends ServiceProvider
+class ServiceProvider extends ServiceProvider
 {
     protected $policies = [
         Invoice::class => InvoicePolicy::class,
@@ -70,14 +69,14 @@ class LaravelPaymentsProvider extends ServiceProvider
                 continue;
             }
             $name = substr($file, 0, -4);
-            $dr['alex-eftimie/laravel-payments/' . $name] = 'AlexEftimie\\LaravelPayments\\Nova\\' . $name;
+            $dr['alex-eftimie/laravel-payments/' . $name] = 'IdeaToCode\\LaravelNovaTallPayments\\Nova\\' . $name;
         }
 
         Config::set('nova.dynamic_resources', $dr);
 
         require __DIR__ . '/routes.php';
 
-        // Blade::componentNamespace('AlexEftimie\\LaravelPayments\\Views\\Components', 'larapay');
+        // Blade::componentNamespace('IdeaToCode\\LaravelNovaTallPayments\\Views\\Components', 'larapay');
 
         Livewire::component('larapay::team-billing-manager', TeamBillingManager::class);
         Livewire::component('larapay::invoice-manager', InvoiceManager::class);

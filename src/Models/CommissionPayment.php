@@ -1,11 +1,14 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Models;
+namespace IdeaToCode\LaravelNovaTallPayments\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AlexEftimie\LaravelPayments\Models\Model;
+use IdeaToCode\LaravelNovaTallPayments\Models\Model;
 
 class CommissionPayment extends Model
-{	
-    public function owner() { return $this->morphTo(); }
+{
+    public function owner()
+    {
+        return $this->morphTo();
+    }
 }

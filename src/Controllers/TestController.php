@@ -1,23 +1,24 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Controllers;
+namespace IdeaToCode\LaravelNovaTallPayments\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Gate;
-use AlexEftimie\LaravelPayments\Models\Invoice;
-use AlexEftimie\LaravelPayments\Facades\Larapay;
-use AlexEftimie\LaravelPayments\Payments\StripeGateway;
-use AlexEftimie\LaravelPayments\Errors\InvoiceAlreadyPaid;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Facades\Larapay;
+use IdeaToCode\LaravelNovaTallPayments\Payments\StripeGateway;
+use IdeaToCode\LaravelNovaTallPayments\Errors\InvoiceAlreadyPaid;
 
-class TestController extends Controller {
+class TestController extends Controller
+{
 
     /**
      * First you start a newFlow and you chose a payment gateway
      */
     public function newFlow(Invoice $invoice)
     {
-        if ( ! is_null($invoice->paid_at) ) {
+        if (!is_null($invoice->paid_at)) {
             throw new InvoiceAlreadyPaid;
         }
 
@@ -28,17 +29,18 @@ class TestController extends Controller {
         return view('larapay::choose-gateway', $data);
     }
 
-    public function showInvoice($invoice) {
+    public function showInvoice($invoice)
+    {
         return view('larapay::show-invoice', ['invoice' => $invoice]);
     }
 
     public function success(Request $request)
     {
         $invoice = Invoice::where('uuid', $request->invoice)->first();
-        if ( is_null($invoice) ) {
+        if (is_null($invoice)) {
             abort(404);
         }
-        if ( !Gate::check('pay', $invoice)) {
+        if (!Gate::check('pay', $invoice)) {
             abort(403);
         }
 
@@ -67,7 +69,7 @@ class TestController extends Controller {
     // public function gw(Request $request, string $gateway, Invoice $invoice) {
 
     //     $gw = Larapay::driver($gateway);
-        
+
     //     $amount = $invoice->amount;
 
     //     $owner = $invoice->owner;

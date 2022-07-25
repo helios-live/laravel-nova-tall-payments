@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Nova;
+namespace IdeaToCode\LaravelNovaTallPayments\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;

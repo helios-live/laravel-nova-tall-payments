@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Nova;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Nova;
 
 use Spatie\TagsField\Tags;
 use Laravel\Nova\Fields\ID;
@@ -17,7 +17,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use App\Nova\Actions\PriceTestServer;
 
 use Laravel\Nova\Resource;
-use \AlexEftimie\LaravelPayments\Models\Price as PriceModel;
+use \IdeaToCode\LaravelNovaTallPaymentsayments\Models\Price as PriceModel;
 
 class Price extends Resource
 {
@@ -27,7 +27,7 @@ class Price extends Resource
      *
      * @var string
      */
-    public static $model = \AlexEftimie\LaravelPayments\Models\Price::class;
+    public static $model = \IdeaToCode\LaravelNovaTallPaymentsayments\Models\Price::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

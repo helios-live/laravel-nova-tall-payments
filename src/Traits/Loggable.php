@@ -1,8 +1,8 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Traits;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Traits;
 
-use AlexEftimie\LaravelPayments\Models\Log;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Log;
 
 
 trait Loggable

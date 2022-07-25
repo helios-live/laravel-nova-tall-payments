@@ -1,12 +1,12 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Models;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * AlexEftimie\LaravelPayments\Models\Log
+ * IdeaToCode\LaravelNovaTallPaymentsayments\Models\Log
  *
  * @property int $id
  * @property string $parent_type
@@ -36,7 +36,10 @@ class Log extends Model
         'value' => 'object',
     ];
 
-    public function parent() { return $this->morphTo(); }
+    public function parent()
+    {
+        return $this->morphTo();
+    }
 
     public static function add($owner, $key, $value)
     {

@@ -1,20 +1,21 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Payments;
+namespace IdeaToCode\LaravelNovaTallPayments\Payments;
 
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Facades\PayPal;
-use AlexEftimie\LaravelPayments\Models\Log;
+use IdeaToCode\LaravelNovaTallPayments\Models\Log;
 use Srmklive\PayPal\Services\ExpressCheckout;
-use AlexEftimie\LaravelPayments\Models\Invoice;
-use AlexEftimie\LaravelPayments\Facades\Larapay;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Facades\Larapay;
 
 
-class PaypalGateway implements PaymentGatewayInterface {
+class PaypalGateway implements PaymentGatewayInterface
+{
     private static $client = null;
     public function getClient()
     {
-        if( !is_null(self::$client) ) {
+        if (!is_null(self::$client)) {
             return self::$client;
         }
 
@@ -27,36 +28,39 @@ class PaypalGateway implements PaymentGatewayInterface {
 
         return self::$client;
     }
-    public function createCustomer(Invoice $invoice, $payload) {}
-    public function createSingleCharge(Invoice $invoice, $payload) {
+    public function createCustomer(Invoice $invoice, $payload)
+    {
+    }
+    public function createSingleCharge(Invoice $invoice, $payload)
+    {
 
         $total = $invoice->amount / 100;
         $provider = $this->getClient();
 
         $result = $provider->createOrder($data = [
-            "intent"=> "CAPTURE",
-            "purchase_units"=> [    
+            "intent" => "CAPTURE",
+            "purchase_units" => [
                 0 => [
-                    "amount"=> [
-                        "currency_code"=> config('larapay.currency_code'),
-                        "value"=> $total
+                    "amount" => [
+                        "currency_code" => config('larapay.currency_code'),
+                        "value" => $total
                     ]
                 ]
             ],
             "application_context" => [
-                "return_url" => route('payment.success', ['gateway'=>'paypal', 'invoice' => $invoice]),
-                "cancel_url" => route('payment.cancel', ['gateway'=>'paypal', 'invoice' => $invoice]),
+                "return_url" => route('payment.success', ['gateway' => 'paypal', 'invoice' => $invoice]),
+                "cancel_url" => route('payment.cancel', ['gateway' => 'paypal', 'invoice' => $invoice]),
             ],
         ]);
 
         $approve_link = null;
-        foreach ($result['links'] as $link ) {
-            if ( $link['rel'] == 'approve' ) {
+        foreach ($result['links'] as $link) {
+            if ($link['rel'] == 'approve') {
                 $approve_link = $link['href'];
             }
         }
 
-        if ( $result['status'] == "CREATED" && !is_null($approve_link)) {
+        if ($result['status'] == "CREATED" && !is_null($approve_link)) {
             Log::add($invoice->owner, 'PaypalGateway::createSingleCharge::redirect', [
                 'data' => $data,
                 'result' => $result,
@@ -119,15 +123,15 @@ class PaypalGateway implements PaymentGatewayInterface {
         ];
     }
 
-    public function getPaymentModalView() {
+    public function getPaymentModalView()
+    {
         return [
-            'larapay::paypal.single', [
-
-            ]
+            'larapay::paypal.single', []
         ];
     }
 
-    public function showForm() {
+    public function showForm()
+    {
         return 'not-ready';
         // return view('larapay::stripe-test',[
         //     'STRIPE_KEY' => env('STRIPE_KEY')

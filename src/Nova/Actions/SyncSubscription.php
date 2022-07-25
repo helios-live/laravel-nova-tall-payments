@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Nova\Actions;
+namespace IdeaToCode\LaravelNovaTallPayments\Nova\Actions;
 
 use Illuminate\Bus\Queueable;
 use Laravel\Nova\Actions\Action;
@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\ActionFields;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use AlexEftimie\LaravelPayments\Events\SubscriptionSync;
+use IdeaToCode\LaravelNovaTallPayments\Events\SubscriptionSync;
 
 class SyncSubscription extends Action
 {

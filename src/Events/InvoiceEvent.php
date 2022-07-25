@@ -1,8 +1,8 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Events;
+namespace IdeaToCode\LaravelNovaTallPayments\Events;
 
-use AlexEftimie\LaravelPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;

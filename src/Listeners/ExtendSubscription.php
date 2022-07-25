@@ -1,13 +1,13 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Listeners;
+namespace IdeaToCode\LaravelNovaTallPayments\Listeners;
 
 
 use Carbon\Carbon;
 
 
-use AlexEftimie\LaravelPayments\Events\InvoiceEvent;
-use AlexEftimie\LaravelPayments\Events\SubscriptionExtended;
+use IdeaToCode\LaravelNovaTallPayments\Events\InvoiceEvent;
+use IdeaToCode\LaravelNovaTallPayments\Events\SubscriptionExtended;
 
 class ExtendSubscription
 {

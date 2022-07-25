@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Nova\Actions;
+namespace IdeaToCode\LaravelNovaTallPayments\Nova\Actions;
 
 use Illuminate\Bus\Queueable;
 use Laravel\Nova\Fields\Text;

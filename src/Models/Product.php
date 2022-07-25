@@ -1,12 +1,12 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Models;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AlexEftimie\LaravelPayments\Models\Model;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Model;
 
 /**
- * AlexEftimie\LaravelPayments\Models\Product
+ * IdeaToCode\LaravelNovaTallPaymentsayments\Models\Product
  *
  * @property int $id
  * @property string $name
@@ -14,10 +14,10 @@ use AlexEftimie\LaravelPayments\Models\Model;
  * @property int|null $category_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \AlexEftimie\LaravelPayments\Models\Category|null $category
- * @property-read \Illuminate\Database\Eloquent\Collection|\AlexEftimie\LaravelPayments\Models\Price[] $prices
+ * @property-read \IdeaToCode\LaravelNovaTallPaymentsayments\Models\Category|null $category
+ * @property-read \Illuminate\Database\Eloquent\Collection|\IdeaToCode\LaravelNovaTallPaymentsayments\Models\Price[] $prices
  * @property-read int|null $prices_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\AlexEftimie\LaravelPayments\Models\Subscription[] $subscriptions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\IdeaToCode\LaravelNovaTallPaymentsayments\Models\Subscription[] $subscriptions
  * @property-read int|null $subscriptions_count
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()

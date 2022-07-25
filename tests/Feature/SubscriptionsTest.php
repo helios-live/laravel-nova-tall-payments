@@ -1,14 +1,14 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Tests\Feature;
+namespace IdeaToCode\LaravelNovaTallPayments\Tests\Feature;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Event;
-use AlexEftimie\LaravelPayments\Tests\FeatureTestCase;
-use AlexEftimie\LaravelPayments\Models\Subscription;
-use AlexEftimie\LaravelPayments\Events\SubscriptionEnded;
-use AlexEftimie\LaravelPayments\Events\SubscriptionCreated;
-use AlexEftimie\LaravelPayments\Events\SubscriptionCanceled;
+use IdeaToCode\LaravelNovaTallPayments\Tests\FeatureTestCase;
+use IdeaToCode\LaravelNovaTallPayments\Models\Subscription;
+use IdeaToCode\LaravelNovaTallPayments\Events\SubscriptionEnded;
+use IdeaToCode\LaravelNovaTallPayments\Events\SubscriptionCreated;
+use IdeaToCode\LaravelNovaTallPayments\Events\SubscriptionCanceled;
 
 class SubscriptionsTest extends FeatureTestCase
 {

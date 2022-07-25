@@ -1,12 +1,12 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Tests\Feature;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Tests\Feature;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithFaker;
-use AlexEftimie\LaravelPayments\Models\Price;
-use AlexEftimie\LaravelPayments\Tests\FeatureTestCase;
-use AlexEftimie\LaravelPayments\Payments\StripeGateway;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Price;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Tests\FeatureTestCase;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Payments\StripeGateway;
 
 
 class StripeTest extends FeatureTestCase

@@ -1,12 +1,12 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Listeners;
+namespace IdeaToCode\LaravelNovaTallPayments\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use AlexEftimie\LaravelPayments\Events\InvoicePaid;
-use AlexEftimie\LaravelPayments\Events\InvoiceEvent;
-use AlexEftimie\LaravelPayments\Notifications\InvoicePaid as InvoicePaidNotification;
+use IdeaToCode\LaravelNovaTallPayments\Events\InvoicePaid;
+use IdeaToCode\LaravelNovaTallPayments\Events\InvoiceEvent;
+use IdeaToCode\LaravelNovaTallPayments\Notifications\InvoicePaid as InvoicePaidNotification;
 
 class SendInvoicePaid
 {

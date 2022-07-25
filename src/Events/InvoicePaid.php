@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Events;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -15,7 +15,8 @@ class InvoicePaid extends InvoiceEvent
     public $gateway;
     public $id;
 
-    public function setGateway(string $gateway, string $id) {
+    public function setGateway(string $gateway, string $id)
+    {
         $this->gateway = $gateway;
         $this->id = $id;
     }

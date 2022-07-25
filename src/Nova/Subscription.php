@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Nova;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Nova;
 
 use Laravel\Nova\Resource;
 use Laravel\Nova\Fields\ID;
@@ -14,13 +14,13 @@ use Laravel\Nova\Fields\Currency;
 
 use App\Nova\Traits\ReferralTrait;
 use Laravel\Nova\Fields\MorphMany;
-use AlexEftimie\LaravelPayments\Nova\Meta;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Nova\Meta;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use AlexEftimie\LaravelPayments\Facades\Larapay;
-use AlexEftimie\LaravelPayments\Nova\Actions\EndSubscription;
-use AlexEftimie\LaravelPayments\Nova\Actions\SyncSubscription;
-use AlexEftimie\LaravelPayments\Nova\Actions\CancelSubscription;
-use AlexEftimie\LaravelPayments\Nova\Filters\SubscriptionStatus;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Facades\Larapay;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Nova\Actions\EndSubscription;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Nova\Actions\SyncSubscription;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Nova\Actions\CancelSubscription;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Nova\Filters\SubscriptionStatus;
 
 class Subscription extends Resource
 {
@@ -30,7 +30,7 @@ class Subscription extends Resource
      *
      * @var string
      */
-    public static $model = \AlexEftimie\LaravelPayments\Models\Subscription::class;
+    public static $model = \IdeaToCode\LaravelNovaTallPaymentsayments\Models\Subscription::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

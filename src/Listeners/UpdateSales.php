@@ -1,12 +1,12 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Listeners;
+namespace IdeaToCode\LaravelNovaTallPayments\Listeners;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use AlexEftimie\LaravelPayments\Models\Sale;
-use AlexEftimie\LaravelPayments\Events\InvoiceEvent;
+use IdeaToCode\LaravelNovaTallPayments\Models\Sale;
+use IdeaToCode\LaravelNovaTallPayments\Events\InvoiceEvent;
 
 class UpdateSales
 {
@@ -30,7 +30,7 @@ class UpdateSales
     {
         $invoice = $event->invoice;
         $amount = 0;
-        switch(class_basename($event)) {
+        switch (class_basename($event)) {
             case "InvoiceRefunded":
                 $amount = -1 * $invoice->amount;
                 break;

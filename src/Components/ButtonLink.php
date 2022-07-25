@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Components;
+namespace IdeaToCode\LaravelNovaTallPayments\Components;
 
 use Illuminate\View\Component;
 

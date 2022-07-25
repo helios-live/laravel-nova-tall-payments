@@ -1,34 +1,34 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Models;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Models;
 
 use Carbon\Carbon;
 use App\Models\Team;
 use Appstract\Meta\Metable;
 use Laravel\Nova\Actions\Actionable;
-use AlexEftimie\LaravelPayments\Models\Model;
-use AlexEftimie\LaravelPayments\Models\Price;
-use AlexEftimie\LaravelPayments\Models\Coupon;
-use AlexEftimie\LaravelPayments\Models\Invoice;
-use AlexEftimie\LaravelPayments\Contracts\Billable;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Model;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Price;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Coupon;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Contracts\Billable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AlexEftimie\LaravelPayments\Events\SubscriptionEnded;
-use AlexEftimie\LaravelPayments\Events\SubscriptionCreated;
-use AlexEftimie\LaravelPayments\Events\SubscriptionStarted;
-use AlexEftimie\LaravelPayments\Events\SubscriptionCanceled;
-use AlexEftimie\LaravelPayments\Events\SubscriptionEndedEvent;
-use AlexEftimie\LaravelPayments\Events\SubscriptionInitFailed;
-use AlexEftimie\LaravelPayments\Events\SubscriptionNewInvoice;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\SubscriptionEnded;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\SubscriptionCreated;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\SubscriptionStarted;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\SubscriptionCanceled;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\SubscriptionEndedEvent;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\SubscriptionInitFailed;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\SubscriptionNewInvoice;
 
 /*
 Subscription example: 
     $team = Team::first();
-    $price = AlexEftimie\LaravelPayments\Models\Price::whereSlug('rp-airplane-monthly')->first();
-    $sub = AlexEftimie\LaravelPayments\Models\Subscription::NewSubscription($team, $price, null);
+    $price = IdeaToCode\LaravelNovaTallPaymentsayments\Models\Price::whereSlug('rp-airplane-monthly')->first();
+    $sub = IdeaToCode\LaravelNovaTallPaymentsayments\Models\Subscription::NewSubscription($team, $price, null);
 */
 
 /**
- * AlexEftimie\LaravelPayments\Models\Subscription
+ * IdeaToCode\LaravelNovaTallPaymentsayments\Models\Subscription
  *
  * @property int $id
  * @property int $owner_id
@@ -40,12 +40,12 @@ Subscription example:
  * @property \Illuminate\Support\Carbon $expires_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \AlexEftimie\LaravelPayments\Models\Invoice|null $latestInvoice
- * @property-read \Illuminate\Database\Eloquent\Collection|\AlexEftimie\LaravelPayments\Models\Invoice[] $invoices
+ * @property \IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice|null $latestInvoice
+ * @property-read \Illuminate\Database\Eloquent\Collection|\IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice[] $invoices
  * @property-read int|null $invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Appstract\Meta\Meta[] $meta
  * @property-read int|null $meta_count
- * @property-read \AlexEftimie\LaravelPayments\Models\Price $price
+ * @property-read \IdeaToCode\LaravelNovaTallPaymentsayments\Models\Price $price
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription query()

@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Events;
+namespace IdeaToCode\LaravelNovaTallPayments\Events;
 
 use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;

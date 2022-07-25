@@ -1,11 +1,12 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Payments;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Payments;
 
 use Illuminate\Http\Request;
-use AlexEftimie\LaravelPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice;
 
-interface PaymentGatewayInterface {
+interface PaymentGatewayInterface
+{
     public function createCustomer(Invoice $invoice, $payload);
     public function createSingleCharge(Invoice $invoice, $payload);
     public function charge(Invoice $invoice, $payload);

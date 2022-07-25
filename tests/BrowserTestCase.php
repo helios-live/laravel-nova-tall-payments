@@ -1,11 +1,11 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Tests;
+namespace IdeaToCode\LaravelNovaTallPayments\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\Dusk\TestCase as BaseTestCase;
-use AlexEftimie\LaravelPayments\LaravelPaymentsProvider;
-use AlexEftimie\LaravelPayments\Tests\SetupTests;
+use IdeaToCode\LaravelNovaTallPayments\LaravelPaymentsProvider;
+use IdeaToCode\LaravelNovaTallPayments\Tests\SetupTests;
 
 
 class BrowserTestCase extends BaseTestCase {

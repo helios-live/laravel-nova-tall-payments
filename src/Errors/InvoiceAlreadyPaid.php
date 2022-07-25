@@ -1,8 +1,9 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Errors;
+namespace IdeaToCode\LaravelNovaTallPayments\Errors;
 
 
-class InvoiceAlreadyPaid extends \Exception {
+class InvoiceAlreadyPaid extends \Exception
+{
     protected $message = "Invoice Already Paid";
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Policies;
+namespace IdeaToCode\LaravelNovaTallPayments\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use AlexEftimie\LaravelPayments\Models\Subscription;
+use IdeaToCode\LaravelNovaTallPayments\Models\Subscription;
 
 class SubscriptionPolicy
 {

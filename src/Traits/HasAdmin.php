@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Traits;
+namespace IdeaToCode\LaravelNovaTallPayments\Traits;
 
 
 trait HasAdmin

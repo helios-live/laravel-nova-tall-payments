@@ -1,12 +1,12 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Models;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AlexEftimie\LaravelPayments\Models\Model;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Model;
 
 /**
- * AlexEftimie\LaravelPayments\Models\Payment
+ * IdeaToCode\LaravelNovaTallPaymentsayments\Models\Payment
  *
  * @property int $id
  * @property int $invoice_id
@@ -15,7 +15,7 @@ use AlexEftimie\LaravelPayments\Models\Model;
  * @property mixed $gateway
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \AlexEftimie\LaravelPayments\Models\Invoice $invoice
+ * @property-read \IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice $invoice
  * @property-read Payment|null $refundFor
  * @property-read Payment|null $refundPayment
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
@@ -34,10 +34,19 @@ class Payment extends Model
 {
     use HasFactory;
     protected $guarded = [];
-	protected $casts = [
-		'gateway' => 'object',
-	];    
-    public function invoice() { return $this->belongsTo(Invoice::class); }
-    public function refundFor() { return $this->belongsTo(Payment::class, 'refund_for'); }
-    public function refundPayment() { return $this->hasOne(Payment::class, 'refund_for'); }
+    protected $casts = [
+        'gateway' => 'object',
+    ];
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class);
+    }
+    public function refundFor()
+    {
+        return $this->belongsTo(Payment::class, 'refund_for');
+    }
+    public function refundPayment()
+    {
+        return $this->hasOne(Payment::class, 'refund_for');
+    }
 }

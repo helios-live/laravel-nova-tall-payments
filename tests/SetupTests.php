@@ -1,11 +1,11 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Tests;
+namespace IdeaToCode\LaravelNovaTallPayments\Tests;
 
-use AlexEftimie\LaravelPayments\Models\Price;
+use IdeaToCode\LaravelNovaTallPayments\Models\Price;
 use Orchestra\Testbench\Factories\UserFactory;
-use AlexEftimie\LaravelPayments\Tests\Models\User;
-use AlexEftimie\LaravelPayments\Models\Subscription;
+use IdeaToCode\LaravelNovaTallPayments\Tests\Models\User;
+use IdeaToCode\LaravelNovaTallPayments\Models\Subscription;
 
 /**
  * 

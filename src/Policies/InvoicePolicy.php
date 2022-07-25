@@ -1,8 +1,8 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Policies;
+namespace IdeaToCode\LaravelNovaTallPayments\Policies;
 
-use AlexEftimie\LaravelPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

@@ -139,7 +139,7 @@
 				<div class="flex justify-between border rounded-xl mt-5 shadow-md items-center">
 					<div class="flex items-center h-20 pl-3">
 						<div class="w-20">
-							{!! AlexEftimie\LaravelPayments\Payments\StripeGateway::getCard($invoice->owner->stripe_card_data->brand) !!}
+							{!! IdeaToCode\LaravelNovaTallPayments\Payments\StripeGateway::getCard($invoice->owner->stripe_card_data->brand) !!}
 						</div>
 						<div class="font-bold">
 							{{ $invoice->owner->stripe_card_data->last4 }}

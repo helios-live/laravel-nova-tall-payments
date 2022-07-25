@@ -11,11 +11,11 @@
     "extra": {
         "laravel": {
             "providers": [
-                "AlexEftimie\\LaravelPayments\\LaravelPaymentsProvider"
+                "IdeaToCode\\LaravelNovaTallPayments\\ServiceProvider"
             ],
             "aliases": {
-                "Larapay": "AlexEftimie\\LaravelPayments\\Facades\\Larapay",
-                "Product": "AlexEftimie\\LaravelPayments\\Models\\Product"
+                "Larapay": "IdeaToCode\\LaravelNovaTallPayments\\Facades\\Larapay",
+                "Product": "IdeaToCode\\LaravelNovaTallPayments\\Models\\Product"
             }
         }
     },
@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AlexEftimie\\LaravelPayments\\": "src"
+            "IdeaToCode\\LaravelNovaTallPayments\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AlexEftimie\\LaravelPayments\\Tests\\": "tests"
+            "IdeaToCode\\LaravelNovaTallPayments\\Tests\\": "tests"
         }
     },
     "require-dev": {

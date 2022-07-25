@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Models;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,10 +9,10 @@ class Sale extends Model
 {
     use HasFactory;
     protected $fillable = [
-            'amount',
-            'team_id',
-            'product_id',
-            'price_id',
+        'amount',
+        'team_id',
+        'product_id',
+        'price_id',
     ];
 
 

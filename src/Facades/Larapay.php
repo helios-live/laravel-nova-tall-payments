@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Facades;
+namespace IdeaToCode\LaravelNovaTallPayments\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

@@ -1,27 +1,32 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Payments;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Payments;
 
 use Stripe\Charge;
 use Stripe\Stripe;
 use Stripe\StripeClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use AlexEftimie\LaravelPayments\Models\Log;
-use AlexEftimie\LaravelPayments\Models\Invoice;
-use AlexEftimie\LaravelPayments\Facades\Larapay;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Log;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Facades\Larapay;
 
-class ManualGateway implements PaymentGatewayInterface {
+class ManualGateway implements PaymentGatewayInterface
+{
 
-    public function createCustomer(Invoice $invoice, $payload) {
-    	return (object)[
-    		'id' => 0
-    	];
+    public function createCustomer(Invoice $invoice, $payload)
+    {
+        return (object)[
+            'id' => 0
+        ];
     }
-    public function createSingleCharge(Invoice $invoice, $payload){}
+    public function createSingleCharge(Invoice $invoice, $payload)
+    {
+    }
 
-    public function charge($invoice, $payload) {
-        if(!Gate::check('pay-manual', $invoice)) {
+    public function charge($invoice, $payload)
+    {
+        if (!Gate::check('pay-manual', $invoice)) {
             Log::add($invoice->owner, 'ManualGateway::charge::failed', ['reason' => 'not-allowed', 'user' => auth()->user()]);
             return (object)[
                 'status' => 'failed'
@@ -29,10 +34,10 @@ class ManualGateway implements PaymentGatewayInterface {
         }
         Log::add($invoice->owner, 'ManualGateway::charge::succeeded', ['user' => auth()->user()]);
 
-    	return (object)[
+        return (object)[
             'id' => 'N/A',
-    		'status' => 'succeeded'
-    	];
+            'status' => 'succeeded'
+        ];
     }
 
     public function refund(Invoice $invoice, $eid)
@@ -43,12 +48,11 @@ class ManualGateway implements PaymentGatewayInterface {
             'status' => 'refunded'
         ];
     }
-    
-    public function getPaymentModalView() {
-    	return [
-            'larapay::manual-single', [
 
-            ]
+    public function getPaymentModalView()
+    {
+        return [
+            'larapay::manual-single', []
         ];
     }
 }

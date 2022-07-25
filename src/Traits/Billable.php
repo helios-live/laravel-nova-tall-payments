@@ -1,11 +1,11 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Traits;
+namespace IdeaToCode\LaravelNovaTallPayments\Traits;
 
-use AlexEftimie\LaravelPayments\Models\Invoice;
-use AlexEftimie\LaravelPayments\Models\Commission;
-use AlexEftimie\LaravelPayments\Models\Subscription;
-use AlexEftimie\LaravelPayments\Models\CommissionPayment;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Models\Commission;
+use IdeaToCode\LaravelNovaTallPayments\Models\Subscription;
+use IdeaToCode\LaravelNovaTallPayments\Models\CommissionPayment;
 
 trait Billable
 {

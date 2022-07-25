@@ -1,10 +1,10 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Listeners;
+namespace IdeaToCode\LaravelNovaTallPayments\Listeners;
 
 
-use AlexEftimie\LaravelPayments\Events\SubscriptionEvent;
-use AlexEftimie\LaravelPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Events\SubscriptionEvent;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
 use Carbon\Carbon;
 
 class SubscriptionCreateInvoice
@@ -20,7 +20,7 @@ class SubscriptionCreateInvoice
         $sub = $event->subscription;
 
         // Completely New Subscription
-        if ( $sub->status == 'New' ) {
+        if ($sub->status == 'New') {
 
             // First invoice has a 24 hour deadline
             $date = Carbon::now()->add('24 hours');
@@ -37,6 +37,5 @@ class SubscriptionCreateInvoice
             'plus' => null,
             'due_at' => $date,
         ]);
-
     }
 }

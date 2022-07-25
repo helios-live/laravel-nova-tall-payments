@@ -1,11 +1,11 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Notifications;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use AlexEftimie\LaravelPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class InvoiceCreated extends Notification
@@ -45,8 +45,8 @@ class InvoiceCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('A new invoice has been created.')
-                    ->action('View Invoice', route('invoice.show', ['invoice' => $this->invoice]));
+            ->line('A new invoice has been created.')
+            ->action('View Invoice', route('invoice.show', ['invoice' => $this->invoice]));
     }
 
     /**

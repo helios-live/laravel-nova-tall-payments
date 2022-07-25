@@ -1,14 +1,14 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Livewire;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Livewire;
 
 use Livewire\Component;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use AlexEftimie\LaravelPayments\Models\Log;
-use AlexEftimie\LaravelPayments\Models\Invoice;
-use AlexEftimie\LaravelPayments\Facades\Larapay;
-use AlexEftimie\LaravelPayments\Models\Subscription;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Log;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Facades\Larapay;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Subscription;
 
 class InvoiceManager extends Component
 {
@@ -37,10 +37,10 @@ class InvoiceManager extends Component
     {
         return view('larapay::livewire.invoice-manager');
     }
-    
+
     public function openGateway(Request $request, $gateway = null)
     {
-        if ( !is_null($gateway) ) {
+        if (!is_null($gateway)) {
             $this->currentGateway = $gateway;
         }
         $this->isGatewayOpen = true;
@@ -70,12 +70,14 @@ class InvoiceManager extends Component
         return $this->parseResponse(Larapay::createSingleCharge($this->currentGateway, $this->invoice, $this->payload));
     }
 
-    public function charge() {
+    public function charge()
+    {
 
         return $this->parseResponse(Larapay::charge($this->currentGateway, $this->invoice, $this->payload));
     }
 
-    public function refund() {
+    public function refund()
+    {
 
         if (!Gate::check('refund', $this->invoice)) {
             $result = (object)[
@@ -90,11 +92,10 @@ class InvoiceManager extends Component
 
     public function parseResponse($response)
     {
-        if (isset($response->status) && $response->status == 'setPayload' )
-        {
-            $this->setPayload( $response->payload );
+        if (isset($response->status) && $response->status == 'setPayload') {
+            $this->setPayload($response->payload);
             return;
-        } elseif ( isset($response->status) && $response->status =='emit' ) {
+        } elseif (isset($response->status) && $response->status == 'emit') {
             call_user_func_array([$this, 'emit'], array_merge([$response->event], $response->arguments));
             return;
         }

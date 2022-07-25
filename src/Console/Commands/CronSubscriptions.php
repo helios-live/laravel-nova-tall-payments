@@ -1,8 +1,8 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Console\Commands;
+namespace IdeaToCode\LaravelNovaTallPayments\Console\Commands;
 
-use AlexEftimie\LaravelPayments\Models\Subscription;
+use IdeaToCode\LaravelNovaTallPayments\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -43,13 +43,13 @@ class CronSubscriptions extends Command
         return 0;
     }
 
-    public function endExpiredSubscriptions() {
+    public function endExpiredSubscriptions()
+    {
 
         $collection = Subscription::where('expires_at', '>', Carbon::now())->get();
 
         $collection = $this->withProgressBar($collection, function ($subscription) {
             $subscription->end(Subscription::REASON_EXPIRED);
         });
-
     }
 }

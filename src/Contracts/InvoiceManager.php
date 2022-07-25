@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Contracts;
+namespace IdeaToCode\LaravelNovaTallPayments\Contracts;
 
 interface InvoiceManager
 {

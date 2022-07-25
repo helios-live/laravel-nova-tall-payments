@@ -1,6 +1,6 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Nova;
+namespace IdeaToCode\LaravelNovaTallPayments\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class Log extends Resource
      *
      * @var string
      */
-    public static $model = \AlexEftimie\LaravelPayments\Models\Log::class;
+    public static $model = \IdeaToCode\LaravelNovaTallPayments\Models\Log::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

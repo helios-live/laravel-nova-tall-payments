@@ -1,13 +1,13 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Listeners;
+namespace IdeaToCode\LaravelNovaTallPayments\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use AlexEftimie\LaravelPayments\Events\UserEvent;
-use AlexEftimie\LaravelPayments\Events\InvoiceEvent;
+use IdeaToCode\LaravelNovaTallPayments\Events\UserEvent;
+use IdeaToCode\LaravelNovaTallPayments\Events\InvoiceEvent;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use AlexEftimie\LaravelPayments\Notifications\InvoiceCreated as InvoiceCreatedNotification;
+use IdeaToCode\LaravelNovaTallPayments\Notifications\InvoiceCreated as InvoiceCreatedNotification;
 
 class NotifyInvoiceCreated extends UserEvent
 {
@@ -33,6 +33,5 @@ class NotifyInvoiceCreated extends UserEvent
         $team = $event->owner;
         $user = $team->owner;
         $user->notify($notification);
-
     }
 }

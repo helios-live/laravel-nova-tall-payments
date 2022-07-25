@@ -1,11 +1,11 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Notifications;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use AlexEftimie\LaravelPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class InvoicePaymentFailed extends Notification

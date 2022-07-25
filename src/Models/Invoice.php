@@ -1,23 +1,23 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Models;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Models;
 
 use Carbon\Carbon;
 use Appstract\Meta\Metable;
 use Illuminate\Support\Str;
-use AlexEftimie\LaravelPayments\Models\Model;
-use AlexEftimie\LaravelPayments\Models\Payment;
-use AlexEftimie\LaravelPayments\Events\InvoicePaid;
-use AlexEftimie\LaravelPayments\Models\Subscription;
-use AlexEftimie\LaravelPayments\Events\InvoiceCreated;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Model;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Payment;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\InvoicePaid;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Models\Subscription;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\InvoiceCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use AlexEftimie\LaravelPayments\Events\InvoiceRefunded;
-use AlexEftimie\LaravelPayments\Events\PayingInvoice;
-use AlexEftimie\LaravelPayments\Events\SubscriptionStarted;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\InvoiceRefunded;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\PayingInvoice;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Events\SubscriptionStarted;
 use Laravel\Nova\Actions\Actionable;
 
 /**
- * AlexEftimie\LaravelPayments\Models\Invoice
+ * IdeaToCode\LaravelNovaTallPaymentsayments\Models\Invoice
  *
  * @property int $id
  * @property int $subscription_id
@@ -27,9 +27,9 @@ use Laravel\Nova\Actions\Actionable;
  * @property string|null $paid_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\AlexEftimie\LaravelPayments\Models\Payment[] $payments
+ * @property-read \Illuminate\Database\Eloquent\Collection|\IdeaToCode\LaravelNovaTallPaymentsayments\Models\Payment[] $payments
  * @property-read int|null $payments_count
- * @property-read \AlexEftimie\LaravelPayments\Models\Subscription $subscription
+ * @property-read \IdeaToCode\LaravelNovaTallPaymentsayments\Models\Subscription $subscription
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Invoice query()

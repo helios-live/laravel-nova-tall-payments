@@ -1,10 +1,10 @@
 <?php
-namespace AlexEftimie\LaravelPayments\Tests\Browser;
+namespace IdeaToCode\LaravelNovaTallPayments\Tests\Browser;
 
 use Laravel\Dusk\Browser;
 use Illuminate\Support\Facades\Schema;
-use AlexEftimie\LaravelPayments\Models\Invoice;
-use AlexEftimie\LaravelPayments\Tests\BrowserTestCase;
+use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
+use IdeaToCode\LaravelNovaTallPayments\Tests\BrowserTestCase;
 
 class StripeCardTest extends BrowserTestCase
 {

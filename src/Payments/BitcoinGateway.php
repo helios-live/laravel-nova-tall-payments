@@ -1,11 +1,12 @@
 <?php
 
-namespace AlexEftimie\LaravelPayments\Payments;
+namespace IdeaToCode\LaravelNovaTallPaymentsayments\Payments;
 
-use AlexEftimie\LaravelPayments\Facades\Larapay;
+use IdeaToCode\LaravelNovaTallPaymentsayments\Facades\Larapay;
 use Illuminate\Http\Request;
 
-class BitcoinGateway implements PaymentGatewayInterface {
+class BitcoinGateway implements PaymentGatewayInterface
+{
     private static $client = null;
     public function getClient()
     {
@@ -27,7 +28,8 @@ class BitcoinGateway implements PaymentGatewayInterface {
         //     'description' => $description,
         // ]);
     }
-    public function createSingleCharge(int $amount, string $currency, string $description, string $payment_method = null,string $customer = null, Request $request = null){
+    public function createSingleCharge(int $amount, string $currency, string $description, string $payment_method = null, string $customer = null, Request $request = null)
+    {
 
         // $data = [
         //     'amount' => $amount,
@@ -58,7 +60,8 @@ class BitcoinGateway implements PaymentGatewayInterface {
     }
 
 
-    public function showForm() {
+    public function showForm()
+    {
         return 'not-ready';
         // return view('larapay::stripe-test',[
         //     'STRIPE_KEY' => env('STRIPE_KEY')
