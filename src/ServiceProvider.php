@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use IdeaToCode\LaravelNovaTallPayments\Larapay;
 use IdeaToCode\LaravelNovaTallPayments\Models\Log;
 use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
@@ -26,7 +26,7 @@ use IdeaToCode\LaravelNovaTallPayments\Policies\SubscriptionPolicy;
 use IdeaToCode\LaravelNovaTallPayments\Console\Commands\CronSubscriptions;
 use IdeaToCode\LaravelNovaTallPayments\Nova\Subscription as NovaSubscription;
 
-class ServiceProvider extends ServiceProvider
+class ServiceProvider extends IlluminateServiceProvider
 {
     protected $policies = [
         Invoice::class => InvoicePolicy::class,
