@@ -1,11 +1,11 @@
 {
-    "name": "alex-eftimie/laravel-payments",
+    "name": "ideatocode/laravel-nova-tall-payments",
     "description": "Payments and Subscriptions implementation for Laravel",
     "type": "library",
     "authors": [
         {
             "name": "Alexandru Eftimie",
-            "email": "office@alexeftimie.ro"
+            "email": "office@ideatocode.tech"
         }
     ],
     "extra": {
