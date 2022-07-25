@@ -14,7 +14,7 @@ class AddBillingFieldsToTeamsTable extends Migration
     public function up()
     {
         Schema::table('teams', function (Blueprint $table) {
-            $table->string('billing_name')->after('affiliate_type')->nullable();
+            $table->string('billing_name')->after('personal_team')->nullable();
             $table->string('billing_address')->after('billing_name')->nullable();
             $table->string('billing_country')->after('billing_address')->nullable();
             $table->string('billing_code')->after('billing_country')->nullable();
