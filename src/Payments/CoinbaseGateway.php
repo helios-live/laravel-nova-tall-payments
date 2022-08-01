@@ -4,9 +4,7 @@ namespace IdeaToCode\LaravelNovaTallPayments\Payments;
 
 use Illuminate\Http\Request;
 use Shakurov\Coinbase\Facades\Coinbase;
-use IdeaToCode\LaravelNovaTallPayments\Models\Log;
 use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
-use IdeaToCode\LaravelNovaTallPayments\Facades\Larapay;
 use Shakurov\Coinbase\Models\CoinbaseWebhookCall;
 
 class CoinbaseGateway implements PaymentGatewayInterface
@@ -21,7 +19,7 @@ class CoinbaseGateway implements PaymentGatewayInterface
             'description' => $invoice->name,
             'local_price' => [
                 'amount' => $invoice->amount / 100,
-                'currency' => config('larapay.currency_code'),
+                'currency' => config('nova.currency'),
             ],
             'metadata' => [
                 'invoice' => $invoice->uuid,

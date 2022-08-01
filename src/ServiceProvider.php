@@ -2,6 +2,7 @@
 
 namespace IdeaToCode\LaravelNovaTallPayments;
 
+
 use Livewire\Livewire;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Gate;
@@ -9,11 +10,11 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use IdeaToCode\LaravelNovaTallPayments\Larapay;
 use IdeaToCode\LaravelNovaTallPayments\Models\Log;
 use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
 use IdeaToCode\LaravelNovaTallPayments\Models\Payment;
+use IdeaToCode\LaravelNovaTallPayments\Livewire\OrderPage;
 use IdeaToCode\LaravelNovaTallPayments\Policies\LogPolicy;
 use IdeaToCode\LaravelNovaTallPayments\Models\Subscription;
 use IdeaToCode\LaravelNovaTallPayments\EventServiceProvider;
@@ -23,8 +24,10 @@ use IdeaToCode\LaravelNovaTallPayments\Policies\InvoicePolicy;
 use IdeaToCode\LaravelNovaTallPayments\Livewire\InvoiceManager;
 use IdeaToCode\LaravelNovaTallPayments\Livewire\TeamBillingManager;
 use IdeaToCode\LaravelNovaTallPayments\Policies\SubscriptionPolicy;
+use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 use IdeaToCode\LaravelNovaTallPayments\Console\Commands\CronSubscriptions;
 use IdeaToCode\LaravelNovaTallPayments\Nova\Subscription as NovaSubscription;
+use IdeaToCode\Nova\Fields\Accounting\Accounting;
 
 class ServiceProvider extends IlluminateServiceProvider
 {
@@ -41,7 +44,7 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
-        $this->app->bind('larapay', function ($app) {
+        $this->app->singleton('larapay', function ($app) {
             return app(Larapay::class);
         });
         $this->app->register(EventServiceProvider::class);
@@ -52,6 +55,10 @@ class ServiceProvider extends IlluminateServiceProvider
         $loader->alias('Subscription', Subscription::class);
         $loader->alias('Payment', Payment::class);
         $loader->alias('Invoice', Invoice::class);
+
+        $obj = [Larapay::class, 'getCurrency'];
+        is_callable($obj, true, $cn);
+        Accounting::setCallback($cn);
     }
 
     /**
@@ -80,6 +87,7 @@ class ServiceProvider extends IlluminateServiceProvider
 
         Livewire::component('larapay::team-billing-manager', TeamBillingManager::class);
         Livewire::component('larapay::invoice-manager', InvoiceManager::class);
+        Livewire::component('larapay::order-page', OrderPage::class);
 
         $this->publishes([
             __DIR__ . '/../config/larapay.php' => config_path('larapay.php'),

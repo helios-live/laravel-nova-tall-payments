@@ -13,6 +13,7 @@ use IdeaToCode\LaravelNovaTallPayments\Models\Subscription;
 use IdeaToCode\LaravelNovaTallPayments\Controllers\Controller;
 use IdeaToCode\LaravelNovaTallPayments\Payments\StripeGateway;
 use IdeaToCode\LaravelNovaTallPayments\Errors\InvoiceAlreadyPaid;
+use IdeaToCode\LaravelNovaTallPayments\NopManager;
 
 class OrderController extends Controller
 {
@@ -28,12 +29,22 @@ class OrderController extends Controller
     public function postProductOrder(Request $request)
     {
 
-        $price = Price::whereSlug($request->price_slug)->first();
+        $price = Price::whereSlug($request->price_slug)->firstOrFail();
 
         $team = $request->user()->currentTeam;
 
-        $sub = Subscription::NewSubscription($price->product->model, $team, $price, null);
+        $sub = Subscription::NewSubscription($price->product->model ?? NopManager::class, $team, $price, null);
 
+        if (!is_null($price->product->skumodel)) {
+
+            $app = app($price->product->skumodel);
+            $query = $app->where(array_values($this->internal_filter))->limit($price->payload->Count);
+
+            $query->update([
+                'owner_id' => $sub->getKey(),
+                'owner_type' => Subscription::class,
+            ]);
+        }
         return redirect()->route('invoice.show', ['invoice' => $sub->invoices()->latest()->first()]);
     }
 }

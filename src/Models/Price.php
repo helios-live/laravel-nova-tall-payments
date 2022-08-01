@@ -47,6 +47,7 @@ class Price extends Model
             '1w' => '1 week',
             '1m' => '1 month',
             '1q' => '3 months',
+            '6m' => '6 months',
             '1y' => '1 year'
         ],
         [
@@ -54,6 +55,7 @@ class Price extends Model
             '1w' => 'weekly',
             '1m' => 'monthly',
             '1q' => 'quarterly',
+            '6m' => 'half-yearly',
             '1y' => 'yearly'
         ]
     ];

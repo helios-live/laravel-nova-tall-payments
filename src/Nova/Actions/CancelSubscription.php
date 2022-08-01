@@ -3,12 +3,13 @@
 namespace IdeaToCode\LaravelNovaTallPayments\Nova\Actions;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
-
-use Laravel\Nova\Actions\DestructiveAction;
 use Laravel\Nova\Fields\ActionFields;
+use Illuminate\Queue\InteractsWithQueue;
+
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Laravel\Nova\Actions\DestructiveAction;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class CancelSubscription extends DestructiveAction
 {
@@ -33,7 +34,7 @@ class CancelSubscription extends DestructiveAction
      *
      * @return array
      */
-    public function fields()
+    public function fields(NovaRequest $request)
     {
         return [];
     }

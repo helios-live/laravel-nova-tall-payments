@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\ActionFields;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Laravel\Nova\Actions\DestructiveAction;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class EndSubscription extends DestructiveAction
 {
@@ -33,7 +34,7 @@ class EndSubscription extends DestructiveAction
      *
      * @return array
      */
-    public function fields()
+    public function fields(NovaRequest $request)
     {
         return [
             Text::make('Reason'),

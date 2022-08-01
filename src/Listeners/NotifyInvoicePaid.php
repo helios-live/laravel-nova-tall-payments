@@ -27,8 +27,10 @@ class NotifyInvoicePaid
     public function handle($event)
     {
         $notification = new InvoicePaidNotification($event->invoice);
-        $team = $event->owner;
-        $user = $team->owner;
-        $user->notify($notification);
+        $owner = $event->owner;
+        if (!is_callable([$owner, 'notify'])) {
+            $owner = $owner->owner;
+        }
+        $owner->notify($notification);
     }
 }

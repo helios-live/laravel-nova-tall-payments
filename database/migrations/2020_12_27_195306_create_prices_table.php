@@ -20,7 +20,7 @@ class CreatePricesTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->string('slug')->unique(); //
             $table->string('name'); //
-            $table->json('payload');
+            $table->json('payload')->nullable();
             $table->integer('amount'); // in cents
             $table->enum('billing_period', $keys);
             $table->timestamps();

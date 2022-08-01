@@ -2,20 +2,26 @@
 
 namespace IdeaToCode\LaravelNovaTallPayments\Nova;
 
+use Carbon\Carbon;
+use Brick\Money\Money;
 use Laravel\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Code;
+use Laravel\Nova\Fields\Line;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Stack;
+
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Currency;
-
+use Laravel\Nova\Fields\DateTime;
 use App\Nova\Traits\ReferralTrait;
 use Laravel\Nova\Fields\MorphMany;
-use IdeaToCode\LaravelNovaTallPayments\Nova\Meta;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use IdeaToCode\LaravelNovaTallPayments\Nova\Meta;
+use IdeaToCode\Nova\Fields\Accounting\Accounting;
 use IdeaToCode\LaravelNovaTallPayments\Facades\Larapay;
 use IdeaToCode\LaravelNovaTallPayments\Nova\Actions\EndSubscription;
 use IdeaToCode\LaravelNovaTallPayments\Nova\Actions\SyncSubscription;
@@ -41,7 +47,7 @@ class Subscription extends Resource
 
     public function title()
     {
-        return '#' . $this->id . '. ' . $this->name;
+        return $this->name;
     }
 
     /**
@@ -50,7 +56,7 @@ class Subscription extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'owner.name'
     ];
 
     /**
@@ -84,9 +90,41 @@ class Subscription extends Resource
             MorphTo::make('Owner')
                 ->hideWhenUpdating(),
 
-            Currency::make('Price', 'current_price')->asMinorUnits(),
+
+
+            // Currency
+            Accounting::make('Amount', 'current_price')
+                ->rules('required')
+                ->asMinorUnits(),
 
             Text::make('Status')->readonly()->sortable(),
+
+
+            Stack::make('Expires At', [
+                Line::make('Expires At', function () {
+                    return optional($this->expires_at)->format('Y-m-d');
+                })->asSmall(),
+
+                Line::make('Readable', function () {
+                    if (!$this->expires_at) {
+                        return '';
+                    };
+
+                    $class = 'text-inherit';
+                    if ($this->expires_at->lessThan(Carbon::now())) {
+                        $class = 'text-red-500';
+                    }
+                    return "<span class='text-sm {$class}'>{$this->expires_at->diffForHumans()}</span>";
+                })->asHtml(),
+
+            ]),
+            // DateTime::make('Expires At')
+            //     ->displayUsing(function ($date) {
+            //         return optional($date)->format('Y-m-d');
+            //     })
+            //     ->sortable()
+            //     ->filterable()
+            //     ->exceptOnForms(),
 
             HasMany::make('Invoices', 'invoices', Invoice::class),
 

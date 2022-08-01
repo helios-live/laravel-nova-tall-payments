@@ -3,6 +3,7 @@
 namespace IdeaToCode\LaravelNovaTallPayments;
 
 use App\Models\User;
+use Closure;
 use NumberFormatter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -28,6 +29,8 @@ class Larapay
     protected $invoice_manager = null;
 
     protected $product_features = [];
+
+    public $ownerCallback;
 
     public function __construct(InvoiceManager $manager = null)
     {
@@ -119,7 +122,7 @@ class Larapay
 
             self::$formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
         }
-        return self::$formatter->formatCurrency($amount / 100, config('larapay.currency_code'));
+        return self::$formatter->formatCurrency($amount / 100, config('nova.currency'));
     }
 
     public function formatPeriod(Subscription $sub)
@@ -285,6 +288,38 @@ class Larapay
         }
         return $this->product_features;
     }
+
+    public function setOwnerCallback(mixed $cb)
+    {
+        $this->ownerCallback = $cb;
+    }
+
+    public function getOwner(Request $request)
+    {
+        $methodVariable = array($this, 'ownerCallback');
+        $cb = $this->ownerCallback;
+        return is_callable($methodVariable, true) ? call_user_func($cb, $request) : $this->ownerCallback;
+    }
+
+    public static function getCurrency()
+    {
+        $user = auth()->user();
+        $default = config('nova.currency');
+        if (!$user) {
+            return $default;
+        }
+
+        return $user->currentTeam->currency ?? $default;
+    }
+    public static function getCurrencySymbol()
+    {
+        $currency = self::getCurrency();
+
+        $locale = config('app.locale', 'en');
+        $fmt = numfmt_create($locale . '@currency=' . $currency, NumberFormatter::CURRENCY);
+        return numfmt_get_symbol($fmt, NumberFormatter::CURRENCY_SYMBOL);
+    }
+
     // public function ShowGatewayForm(Request $request, string $gateway, Invoice $invoice) {
 
     //     $gw = LarapayFacade::driver($gateway);

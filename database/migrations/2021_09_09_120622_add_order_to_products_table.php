@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPayloadToSubscriptionsTable extends Migration
+class AddOrderToProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddPayloadToSubscriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('subscriptions', function (Blueprint $table) {
-            $table->json('payload')->nullable()->after('status');
+        Schema::table('products', function (Blueprint $table) {
+            $table->integer('order')->after('skumodel')->default(0);
         });
     }
 
@@ -25,8 +25,8 @@ class AddPayloadToSubscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('subscriptions', function (Blueprint $table) {
-            $table->dropColumn('payload');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('order');
         });
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\ActionFields;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use IdeaToCode\LaravelNovaTallPayments\Events\SubscriptionSync;
 
 class SyncSubscription extends Action
@@ -43,7 +44,7 @@ class SyncSubscription extends Action
      *
      * @return array
      */
-    public function fields()
+    public function fields(NovaRequest $request)
     {
         return [];
     }

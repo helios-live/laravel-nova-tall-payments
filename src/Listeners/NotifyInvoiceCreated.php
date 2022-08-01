@@ -2,6 +2,7 @@
 
 namespace IdeaToCode\LaravelNovaTallPayments\Listeners;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use IdeaToCode\LaravelNovaTallPayments\Events\UserEvent;
@@ -30,8 +31,10 @@ class NotifyInvoiceCreated extends UserEvent
     public function handle(InvoiceEvent $event)
     {
         $notification = new InvoiceCreatedNotification($event->invoice);
-        $team = $event->owner;
-        $user = $team->owner;
-        $user->notify($notification);
+        $owner = $event->owner;
+        if (!is_callable([$owner, 'notify'])) {
+            $owner = $owner->owner;
+        }
+        $owner->notify($notification);
     }
 }

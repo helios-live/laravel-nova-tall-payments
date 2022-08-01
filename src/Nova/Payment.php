@@ -2,14 +2,17 @@
 
 namespace IdeaToCode\LaravelNovaTallPayments\Nova;
 
+use Carbon\Carbon;
+use Laravel\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Currency;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Code;
-use Laravel\Nova\Resource;
+use IdeaToCode\Nova\Fields\Accounting\Accounting;
 
 class Payment extends Resource
 {
@@ -48,11 +51,30 @@ class Payment extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
 
-            Date::make('created_at'),
 
-            Currency::make('Amount')
-                ->asMinorUnits()
-                ->hideWhenUpdating(),
+
+            DateTime::make("Created", "created_at")
+                ->displayUsing(function ($date) {
+                    return optional($date)->format('Y-m-d');
+                })
+                ->onlyOnIndex()
+                ->sortable()
+                ->filterable(),
+
+            DateTime::make("Created At")->default(function () {
+                return Carbon::now();
+            })
+                ->displayUsing(function ($date) {
+                    return optional($date)->format('Y-m-d H:i:s');
+                })
+                ->hideFromIndex(),
+
+
+            // Currency
+            Accounting::make('Amount')
+                ->rules('required')
+                ->hideWhenUpdating()
+                ->asMinorUnits(),
 
             BelongsTo::make('Invoice', 'invoice', Invoice::class)
                 ->hideWhenUpdating(),

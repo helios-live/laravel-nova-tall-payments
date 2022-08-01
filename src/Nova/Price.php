@@ -2,6 +2,7 @@
 
 namespace IdeaToCode\LaravelNovaTallPayments\Nova;
 
+use Laravel\Nova\Resource;
 use Spatie\TagsField\Tags;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -14,9 +15,9 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\BelongsTo;
-use App\Nova\Actions\PriceTestServer;
 
-use Laravel\Nova\Resource;
+use App\Nova\Actions\PriceTestServer;
+use IdeaToCode\Nova\Fields\Accounting\Accounting;
 use \IdeaToCode\LaravelNovaTallPayments\Models\Price as PriceModel;
 
 class Price extends Resource
@@ -53,6 +54,7 @@ class Price extends Resource
      */
     public function fields(Request $request)
     {
+
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make('Product', function () {
@@ -69,10 +71,21 @@ class Price extends Resource
                 ->rules('required', 'max:255')
                 ->creationRules('unique:products,slug')
                 ->updateRules('unique:products,slug,{{resourceId}}'),
-            Currency::make('Amount')->asMinorUnits(),
-            Code::make('Payload')->language('json')->json(),
-            Select::make('Billing Period')->options(PriceModel::$period_map[1]),
-            Tags::make('Server Tags', 'Tags'),
+
+            // Currency
+            Accounting::make('Amount')
+                ->rules('required')
+                ->asMinorUnits(),
+
+
+            Code::make('Payload')
+                ->language('json')
+                ->json()
+                ->rules('required'),
+            Select::make('Billing Period')
+                ->rules('required')
+                ->options(PriceModel::$period_map[1]),
+            Tags::make('Tags', 'Tags'),
             Number::make('Order')
                 ->default(0)
                 ->sortable(),
@@ -124,7 +137,7 @@ class Price extends Resource
     public function actions(Request $request)
     {
         return [
-            new PriceTestServer,
+            // new PriceTestServer,
         ];
     }
 }

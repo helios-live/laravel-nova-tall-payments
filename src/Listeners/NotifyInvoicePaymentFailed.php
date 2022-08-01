@@ -31,8 +31,10 @@ class NotifyInvoicePaymentFailed
             return;
         }
         $notification = new InvoicePaymentFailedNotification($event->invoice);
-        $team = $event->owner;
-        $user = $team->owner;
-        $user->notify($notification);
+        $owner = $event->owner;
+        if (!is_callable([$owner, 'notify'])) {
+            $owner = $owner->owner;
+        }
+        $owner->notify($notification);
     }
 }

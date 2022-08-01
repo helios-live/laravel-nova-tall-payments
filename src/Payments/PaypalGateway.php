@@ -5,7 +5,7 @@ namespace IdeaToCode\LaravelNovaTallPayments\Payments;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Facades\PayPal;
 use IdeaToCode\LaravelNovaTallPayments\Models\Log;
-use Srmklive\PayPal\Services\ExpressCheckout;
+
 use IdeaToCode\LaravelNovaTallPayments\Models\Invoice;
 use IdeaToCode\LaravelNovaTallPayments\Facades\Larapay;
 
@@ -42,7 +42,7 @@ class PaypalGateway implements PaymentGatewayInterface
             "purchase_units" => [
                 0 => [
                     "amount" => [
-                        "currency_code" => config('larapay.currency_code'),
+                        "currency_code" => config('nova.currency'),
                         "value" => $total
                     ]
                 ]

@@ -62,7 +62,8 @@ class Product extends Resource
                 ->rules('required', 'max:255')
                 ->creationRules('unique:products,slug')
                 ->updateRules('unique:products,slug,{{resourceId}}'),
-            Trix::make('Description'),
+            Trix::make('Description')
+                ->rules('required'),
             Number::make('Order')
                 ->default(0)
                 ->sortable(),

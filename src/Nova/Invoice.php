@@ -9,12 +9,15 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Badge;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\MorphTo;
+
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\DateTime;
-
 use Laravel\Nova\Fields\BelongsTo;
+use IdeaToCode\Nova\Fields\Accounting\Accounting;
 use IdeaToCode\LaravelNovaTallPayments\Traits\ReferralTrait;
 use IdeaToCode\LaravelNovaTallPayments\Nova\Actions\RefundPayment;
 
@@ -58,7 +61,7 @@ class Invoice extends Resource
         $ref = $this->getReferralModel();
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Currency::make('Amount')->asMinorUnits()
+            Accounting::make('Amount')->asMinorUnits()
                 ->default(function () use ($ref) {
                     if ($ref) {
                         return $ref->current_price;
@@ -68,20 +71,48 @@ class Invoice extends Resource
                     return $this->resource->exists;
                 }),
 
-            Date::make('Created At')->onlyOnIndex(true),
+            DateTime::make('Created At')
+                ->displayUsing(function ($date) {
+                    return optional($date)->format('Y-m-d');
+                })->onlyOnIndex(true),
+
             DateTime::make('Created At', 'created_at')->default(function () {
                 return Carbon::now();
             })->hideFromIndex(),
 
-            Date::make('Due At')->onlyOnIndex(true),
+            DateTime::make('Due At')
+                ->displayUsing(function ($date) {
+                    return optional($date)->format('Y-m-d');
+                })->onlyOnIndex(true),
             DateTime::make('Due At', 'due_at')->default(function () {
                 return Carbon::parse('+24 hours');
             })->hideFromIndex(),
-            Text::make('Status', function () {
-                return view('nova.partials.invoice-status', [
-                    'status' => $this->status,
-                ])->render();
-            })->asHtml(),
+
+            Badge::make('Status')
+                ->addTypes([
+                    'active' => 'bg-inherit text-inherit',
+                ])
+                ->map([
+                    'overdue' => 'warning',
+                    'due' => 'active',
+                    'paid' => 'success',
+                    'refunded' => 'danger'
+                ]),
+
+            Select::make('Status')->options([
+                'overdue' => 'Overdye',
+                'due' => 'Due',
+                'paid' => 'Paid',
+                'refunded' => 'Refunded',
+            ])
+                ->default('due')
+                ->onlyOnForms(),
+
+            // Text::make('Status', function () {
+            //     return view('larapay::partials.invoice-status', [
+            //         'status' => $this->status,
+            //     ])->render();
+            // })->asHtml(),
 
             $this->ownerField($ref),
 
